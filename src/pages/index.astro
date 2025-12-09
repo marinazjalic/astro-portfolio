@@ -7,46 +7,42 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-  <div class="w-full h-200 bg-gray-900 flex">
+  <div class="w-full min-h-screen bg-gray-900 flex flex-col lg:flex-row items-center p-6 lg:p-20 gap-10">
 
-
-
-    <!-- div for name -->
-      <div class="mx-auto mt-40 
-              text-9xl pt-25 pb-10 pl-35 pr-5
-              bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500
-              bg-clip-text text-transparent name-text">
-        <h2 class="text-8xl">MARINA</h2>
-        <h2>ZJALIC</h2>
-    </div>
-
-    <div class="mx-auto mt-135 ml-20 text-white w-[402s]">
-      <p class="header-text text-sm">I'M A SOFTWARE DEVELOPER</p>
-      <p class="default-text text-xs font-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-    </div>
-
-     <div class="flex-grow text-white h-full ml-5">
-      <div class="flex flex-col mt-60 items-center gap-10 p-2 h-[40%] ml-30">
-        <a href="/" class="header-text text-white hover:no-underline">
-          HOME
-        </a>
-        <a href="/" class="header-text text-white hover:no-underline">
-          ABOUT ME
-        </a>
-        <a href="/" class="header-text text-white hover:no-underline">
-          PORTFOLIO
-        </a>
-        
+    <div class="lg:text-left">
+      <div
+        class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 
+               bg-clip-text text-transparent">
+        <h2 class="text-7xl sm:text-7xl md:text-8xl lg:text-8xl font-bold name-text">
+          MARINA
+        </h2>
+        <h2 class="text-8xl sm:text-8xl md:text-9xl lg:text-9xl font-bold name-text">
+          ZJALIC
+        </h2>
       </div>
-      <p class="default-text text-xs font-light w-[65%]">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+    </div>
+
+
+    
+    <div class="text-white max-w-sm text-center lg:text-left lg:mt-100">
+      <p class="text-sm md:text-base font-semibold mb-2 header-text">
+        I'M A SOFTWARE DEVELOPER
+      </p>
+      <p class="text-xs font-light default-text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </div>
 
 
-
-
+  <div class="text-white flex flex-col max-w-sm header-text relative">
+    <p class="text-xs font-light text-center lg:text-left default-text lg:mt-110">
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+      ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+      reprehenderit.
+    </p>
+    </div>
   </div>
+
+
 </Layout>
