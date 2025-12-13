@@ -1,52 +1,70 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Experience from '../components/Experience.astro'
+import { experiences } from '../data/experiences'
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-  <div class="w-full min-h-screen bg-gray-900 flex flex-col lg:flex-row items-center p-6 lg:p-20 gap-3 lg:gap-10">
+  <div class="bg-gray-900">
+    <div
+      class="w-full min-h-screen bg-gray-900 flex flex-col lg:flex-row items-center p-6 lg:p-20 gap-3 lg:gap-10"
+    >
+      <div class="lg:text-left">
+        <div
+          class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent"
+        >
+          <h2
+            class="text-7xl sm:text-7xl md:text-8xl lg:text-8xl font-bold name-text"
+          >
+            MARINA
+          </h2>
+          <h2
+            class="text-8xl sm:text-8xl md:text-9xl lg:text-9xl font-bold name-text"
+          >
+            ZJALIC
+          </h2>
+        </div>
+      </div>
 
-    <div class="lg:text-left">
-      <div
-        class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 
-               bg-clip-text text-transparent">
-        <h2 class="text-7xl sm:text-7xl md:text-8xl lg:text-8xl font-bold name-text">
-          MARINA
-        </h2>
-        <h2 class="text-8xl sm:text-8xl md:text-9xl lg:text-9xl font-bold name-text">
-          ZJALIC
-        </h2>
+      <div class="text-white max-w-sm text-left lg:mt-100">
+        <p class="text-sm md:text-base font-semibold mb-2 header-text">
+          I'M A SOFTWARE DEVELOPER
+        </p>
+        <p class="text-xs font-light default-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+
+      <div class="p-6 flex flex-col justify-between header-text text-white">
+        <nav
+          class="flex flex-col items-center text-center gap-10 lg:mt-30 lg:ml-70"
+        >
+          <a href="/">HOME</a>
+          <a href="/">ABOUT</a>
+          <a href="/">PORTFOLIO</a>
+        </nav>
+
+        <p
+          class="text-xs font-light text-center text-left default-text lg:mt-50"
+        >
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit.
+        </p>
       </div>
     </div>
 
-    <div class="text-white max-w-sm text-left lg:mt-100">
-      <p class="text-sm md:text-base font-semibold mb-2 header-text">
-        I'M A SOFTWARE DEVELOPER
-      </p>
-      <p class="text-xs font-light default-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </p>
-    </div>
+    <p class="text-3xl default-text text-center mb-6 text-white">
+      Professional Experience
+    </p>
 
-    <div class="p-6  flex flex-col justify-between header-text text-white">
-      <nav class="flex flex-col items-center text-center gap-10 lg:mt-30 lg:ml-70">
-        <a href="/">HOME</a>
-        <a href="/">ABOUT</a>
-        <a href="/">PORTFOLIO</a>
-      </nav>
 
-      <p class="text-xs font-light text-center text-left default-text lg:mt-50">
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit.
-      </p>
-    </div>
-    
+    {experiences.map(exp => <Experience {...exp} />)}
+
   </div>
-
-
 </Layout>
