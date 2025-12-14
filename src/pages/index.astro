@@ -6,9 +6,17 @@ import { experiences } from '../data/experiences'
 
 <Layout>
   <div class="bg-gray-900 min-h-screen">
+    <!-- Navbar  -->
+    <nav
+      class="flex items-center justify-end text-center text-white header-text gap-4 pt-5 pr-5"
+    >
+      <a href="/">HOME</a>
+      <a href="/">ABOUT</a>
+      <a href="/">PORTFOLIO</a>
+    </nav>
     <div class="flex flex-col lg:flex-row lg:min-h-screen">
       <!-- Name container -->
-      <div class="flex-1 p-6 lg:p-20 flex items-center justify-center">
+      <div class="flex-1 p-6 lg:p-20 flex items-center justify-center mb-20">
         <div
           class="bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 bg-clip-text text-transparent name-text font-bold"
         >
@@ -19,21 +27,8 @@ import { experiences } from '../data/experiences'
 
       <!-- Right side container -->
       <div class="lg:w-3/4 flex flex-col w-full">
-        <!-- Navbar container -->
-        <div
-          class="lg:h-[65%] flex justify-center lg:justify-end items-center header-text"
-        >
-          <nav
-            class="flex flex-row md:flex-col items-center text-center gap-10 lg:mr-20 text-white lg:mt-20"
-          >
-            <a href="/">HOME</a>
-            <a href="/">ABOUT</a>
-            <a href="/">PORTFOLIO</a>
-          </nav>
-        </div>
-
         <!-- Text column containers -->
-        <div class="flex-1 flex flex-col md:flex-row text-white p-5">
+        <div class="flex-1 flex flex-col md:flex-row text-white p-5 lg:mt-130">
           <div class="flex-1">
             <p class="text-sm md:text-base font-semibold mb-2 header-text">
               I'M A SOFTWARE DEVELOPER
