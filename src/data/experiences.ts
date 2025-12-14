@@ -5,6 +5,7 @@ export const experiences = [
     role: "Automation Engineer",
     company: "Level One Robotics and Controls, Inc.",
     description: [],
+    skills: [],
   },
   {
     start: "2022-09",
@@ -16,6 +17,7 @@ export const experiences = [
       "Designed and refactored REST APIs to optimize key Epicor ERP operations, which significantly enhanced efficiency by over 90%.",
       "Contributed to sprint planning sessions and team code reviews in an Agile environment while managing tasks with Jira.",
     ],
+    skills: ["JavaScript", "C#/.NET", "REST APIs"],
   },
   {
     start: "2022-01",
@@ -26,6 +28,7 @@ export const experiences = [
       "Published documentation for software issues, effectively reducing the volume of related support tickets by 85%.",
       "Monitored and resolved on-call and ServiceNow incidents in real-time by troubleshooting software and hardware related issues.",
     ],
+    skills: [],
   },
   {
     start: "2021-05",
@@ -35,5 +38,6 @@ export const experiences = [
       "Provided technical support to end-users and promptly resolved hardware, software, and network issues to improve employee productivity.",
       "Maintained, configured, and deployed devices while researching new tools to increase production efficiency.",
     ],
+    skills: [],
   },
 ];

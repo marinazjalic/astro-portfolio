@@ -1,13 +1,17 @@
 ---
+
+import Tag from '../components/Tag.astro'
+
 interface Props {
     start: Date,
     end: Date | "Present",
     role: string,
     company: string
     description: string[]
+    skills: string[]
 }
 
-const { start, end, role, company, description} = Astro.props
+const { start, end, role, company, description, skills } = Astro.props
 
 ---
 
@@ -21,11 +25,17 @@ const { start, end, role, company, description} = Astro.props
     <div class="md:w-3/4">
       <h3 class="text-sm font-semibold">{role}</h3>
       <p class="text-xs pb-2">{company}</p>
-      <ul class="list-disc pl-5 text-xs space-y-1">
+      <ul class="list-disc pl-5 text-xs space-y-1 pb-4">
         {description.map(point => (
           <li>{point}</li>
         ))}
       </ul>
+
+      <div class="flex flex-wrap gap-2">
+        {skills.map(skill => (
+        <Tag skill={skill}/>
+      ))}
+      </div>
     </div>
   </div>
 </div>
