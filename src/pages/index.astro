@@ -1,19 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Experience from '../components/Experience.astro'
+import Navbar from '../components/Navbar.astro'
 import { experiences } from '../data/experiences'
 ---
 
 <Layout>
   <div class="bg-[#EBEAE8] min-h-screen">
-    <!-- Navbar  -->
-   <nav class="flex items-center justify-between text-gray-500 font-mono gap-4 pt-5 px-5 text-sm">
-      <a href="/">Home.</a>
-      <div class="flex gap-4">
-        <a href="/">About.</a>
-        <a href="/">Portfolio.</a>
-      </div>
-    </nav>
+
+    <Navbar/>
 
     <div class="flex flex-col lg:flex-row lg:min-h-screen items-center ml-10 pt-4 md:pt-0">
       <h1 class="font-bold tracking-tighter mb-6 leading-[0.85]">
