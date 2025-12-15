@@ -34,6 +34,7 @@ export const experiences = [
     start: "2021-05",
     end: "2021-09",
     role: "IT Technician",
+    company: "Kautex Textron",
     description: [
       "Provided technical support to end-users and promptly resolved hardware, software, and network issues to improve employee productivity.",
       "Maintained, configured, and deployed devices while researching new tools to increase production efficiency.",

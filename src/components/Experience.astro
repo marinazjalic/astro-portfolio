@@ -23,8 +23,13 @@ const { start, end, role, company, description, skills } = Astro.props
     </div>
 
     <div class="md:w-3/4">
-      <h3 class="text-sm font-semibold">{role}</h3>
-      <p class="text-xs pb-2">{company}</p>
+      <div class="flex items-center gap-2 text-sm pb-2 pt-2 ">
+        <h3 class="font-semibold text-sm">{role}</h3>
+        <span class="text-gray-400">&bull;</span>
+        <p class="text-sm text-[#5cd6d6] ">{company}</p>
+      </div>
+
+
       <ul class="list-disc pl-5 text-xs space-y-1 pb-4">
         {description.map(point => (
           <li>{point}</li>
