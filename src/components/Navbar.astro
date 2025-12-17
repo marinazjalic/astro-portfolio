@@ -1,5 +1,6 @@
 <nav
-  class="flex items-center justify-between text-gray-500 font-mono gap-4 pt-5 px-5 text-sm"
+  id="navbar"
+  class="flex items-center justify-between text-gray-500 font-mono gap-4 pt-5 px-5 text-sm sticky top-0 z-50 pb-2"
 >
   <a class="pt-1" href="/">Home.</a>
   <div class="flex gap-4">
@@ -13,3 +14,19 @@
     </button>
   </div>
 </nav>
+
+<script is:inline>
+  const navbar = document.getElementById("navbar");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add("backdrop-blur-md", "border-b", "border-gray-300");
+    } else {
+      navbar.classList.remove(
+        "backdrop-blur-md",
+        "border-b",
+        "border-gray-300"
+      );
+    }
+  });
+</script>
