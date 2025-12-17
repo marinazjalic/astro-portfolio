@@ -18,19 +18,22 @@ const { start, end, role, company, description, skills } = Astro.props
 <div class="max-w-5xl mx-auto px-6 py-10">
   <div class="flex flex-col md:flex-row text-sm text-gray-500 sm:pl-2 ">
 
-    <div class="text-xs md:w-1/4 md:p-2 font-mono">
+    <div class="text-xs md:w-1/4 font-mono">
       <p>{start} - {end}</p>
     </div>
 
     <div class="md:w-3/4">
-      <div class="flex items-center gap-2 text-sm pb-2 pt-2 ">
-        <h3 class="font-semibold text-sm">{role}</h3>
-        <span class="text-gray-400">&bull;</span>
-        <p class="text-sm text-[#5cd6d6] ">{company}</p>
-      </div>
+         <h3
+          class="text-base font-semibold
+                bg-gradient-to-r from-[#D946A6] via-[#B794F6] to-[#D946A6]
+                bg-clip-text text-transparent"
+           >
+           {role}
+        </h3>
+      <p class="text-sm text-gray-500">{company}</p>
 
 
-      <ul class="list-disc pl-5 text-xs space-y-1 pb-4">
+      <ul class="list-disc pl-5 text-sm space-y-1 pb-4 pt-2">
         {description.map(point => (
           <li>{point}</li>
         ))}
