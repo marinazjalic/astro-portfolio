@@ -12,3 +12,11 @@
 .default-text {
   font-family: "Inter", sans-serif;
 }
+
+.grid-bg {
+  background-color: #ebeae8;
+  background-image:
+    linear-gradient(to right, #e6e6e6 2px, transparent 2px),
+    linear-gradient(to bottom, #e6e6e6 2px, transparent 2px);
+  background-size: 100px 100px;
+}
