@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Experience from '../components/Experience.astro'
 import Navbar from '../components/Navbar.astro'
+import Technologies from '../components/Technologies.astro'
 import { experiences } from '../data/experiences'
+
 
 const lastModified = new Date().toLocaleString("en-US").replace(",", '');
 
@@ -51,7 +53,9 @@ const lastModified = new Date().toLocaleString("en-US").replace(",", '');
       
       </div>
     </div>
-  
+
+    
+    <Technologies/>
 
     <p class="text-2xl default-text text-center mb-6 text-gray-500 mt-30 lg:mt-0">
       Work Experience
