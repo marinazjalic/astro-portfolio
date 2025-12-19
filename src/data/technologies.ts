@@ -5,6 +5,7 @@ import PythonIcon from "../assets/python.svg";
 import ReactIcon from "../assets/react.svg";
 import TypeScriptIcon from "../assets/typescript.svg";
 import NodeIcon from "../assets/node.svg";
+import NetIcon from "../assets/dotnet.svg";
 
 export const technologies = [
   {
@@ -18,6 +19,10 @@ export const technologies = [
   {
     name: "C#",
     icon: CSharpIcon,
+  },
+  {
+    name: ".NET",
+    icon: NetIcon,
   },
   {
     name: "Python",
