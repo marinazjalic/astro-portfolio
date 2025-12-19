@@ -1,13 +1,18 @@
 ---
 interface Props  {
-    technology: string
+    name: string
+    icon: any 
 }
 
-const { technology } = Astro.props;
+const { name, icon: Icon } = Astro.props; 
 ---
 
 <div
-  class="w-full lg:w-[90%]  aspect-square bg-gray-100 rounded-lg shadow flex items-center justify-center p-4"
+  class="w-full lg:w-[90%] aspect-square bg-gray-100 rounded-lg shadow flex flex-col items-center justify-center p-4"
 >
-  {technology}
+  <div class="flex items-center justify-center w-full">
+    <Icon class="w-12 h-12 text-blue-500" />
+  </div>
+
+  <span class="mt-2 font-medium">{name}</span>
 </div>
