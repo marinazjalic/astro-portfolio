@@ -8,11 +8,13 @@ const { name, icon: Icon } = Astro.props;
 ---
 
 <div
-  class="w-full lg:w-[90%] aspect-square bg-gray-100 rounded-lg shadow flex flex-col items-center justify-center p-4"
+  class="relative w-full lg:w-[90%] aspect-square bg-gray-100 rounded-lg shadow flex flex-col items-center justify-center p-4"
 >
-  <div class="flex items-center justify-center w-full">
-    <Icon class="w-12 h-12 text-blue-500" />
+  <div class="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full"></div>
+
+  <div class="flex items-center justify-center w-full mt-10">
+    <Icon class="w-20 h-20 text-[#A14189] hover:text-[#8080ff]" />
   </div>
 
-  <span class="mt-2 font-medium">{name}</span>
+  <span class="mt-5 text-sm font-mono text-gray-500">{name}</span>
 </div>
