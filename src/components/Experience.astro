@@ -27,19 +27,18 @@ const { start, end, role, company, description, skills } = Astro.props
   <!-- Main content -->
   <div class="ml-8 flex flex-col md:flex-row text-sm text-gray-500 w-full">
 
-    <div class="text-xs md:w-1/4 font-mono pb-2 md:pb-0">
+    <div class="text-[13px] md:w-1/4 font-mono pb-2 md:pb-0 mt-1.5">
       <p>{start} - {end}</p>
     </div>
 
     <div class="md:w-3/4">
          <h3
-          class="text-base font-semibold
-                bg-gradient-to-r from-[#D946A6] via-[#B794F6] to-[#D946A6]
-                bg-clip-text text-transparent"
+          class="text-xl font-semibold
+                text-gray-500"
            >
            {role}
         </h3>
-      <p class="text-sm text-gray-500">{company}</p>
+      <p class="text-sm text-[#C17B9E]">{company}</p>
 
 
       <ul class="list-disc pl-5 text-sm space-y-1 pb-4 pt-2">
