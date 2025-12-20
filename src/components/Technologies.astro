@@ -4,9 +4,8 @@ import {technologies} from '../data/technologies'
 ---
 
 <div class="max-w-6xl mx-auto px-4 py-8 text-center">
-  <h2 class="text-4xl font-bold mb-2 bg-gradient-to-r from-[#D946A6] via-[#B794F6] to-[#D946A6] bg-clip-text text-transparent default-text">
-    Technologies
-  </h2>
+  <h2 class="text-4xl font-bold mb-2 ...">Technologies</h2>
+
   <p class="mb-6 text-gray-500">
     <span class="text-[#8080ff] text-sm">&lt;</span>
     Tools and frameworks I use to bring ideas to life
@@ -14,11 +13,9 @@ import {technologies} from '../data/technologies'
   </p>
 
   <div
-    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 space-y-4"
+    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 space-y-4 tech-grid"
   >
-
-    {technologies.map(tech => <TechnologyCard {...tech} />)} 
-    
+    {technologies.map(tech => <TechnologyCard {...tech} />)}
   </div>
 </div>
 
