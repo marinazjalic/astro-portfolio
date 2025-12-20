@@ -18,11 +18,10 @@ const { start, end, role, company, description, skills } = Astro.props
 <div class="relative flex">
 
 <!-- Timeline dot -->
-  <div
-    class="absolute left-[-20px] top-2 z-5
-           h-2.5 w-2.5 rounded-full
-           bg-[#3C8FA8]"
-  ></div>
+  <div class="absolute left-[-20px] top-2 z-5">
+    <span class="absolute inline-flex top-[8px] h-2.5 w-2.5 rounded-full bg-[#3C8FA8] opacity-75 animate-ping "></span>
+    <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#3C8FA8]"></span>
+  </div>
 
   <!-- Main content -->
   <div class="ml-8 flex flex-col md:flex-row text-sm text-gray-500 w-full">
