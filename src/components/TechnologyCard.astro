@@ -1,20 +1,24 @@
 ---
-interface Props  {
-    name: string
-    icon: any 
+interface Props {
+  name: string;
+  icon: any;
 }
-
-const { name, icon: Icon } = Astro.props; 
+const { name, icon: Icon } = Astro.props;
 ---
 
 <div
-  class="relative w-full lg:w-[90%] aspect-square rounded-lg shadow flex flex-col items-center justify-center p-4 group transition-transform duration-300 hover:scale-105 bg-[#ebeae8]"
+  class="relative aspect-square rounded-lg shadow-sm flex flex-col items-center justify-center p-4 group transition-all duration-300 hover:scale-105 hover:shadow-md bg-white/60 border border-[#e6e6e6]"
 >
-  <div class="absolute top-2 right-2 w-2 h-2 bg-[#e6ccff] rounded-full group-hover:bg-[#B784A7]"></div>
+  <!-- Corner accent dot -->
+  <div class="absolute top-2 right-2 w-1.5 h-1.5 bg-[#e6ccff] rounded-full group-hover:bg-[#C17B9E] transition-colors duration-300"></div>
 
-  <div class="flex items-center justify-center w-full mt-10">
-    <Icon class="w-20 h-20 text-[#537d90] group-hover:text-[#B784A7] transition-transform duration-300 group-hover:rotate-6" />
+  <div class="flex items-center justify-center w-full mt-6">
+    <Icon
+      class="w-14 h-14 text-[#537d90] group-hover:text-[#C17B9E] transition-all duration-300 group-hover:rotate-6"
+    />
   </div>
 
-  <span class="mt-5 text-sm font-mono text-gray-500 group-hover:text-gray-600">{name}</span>
+  <span class="mt-4 text-[11px] font-mono text-gray-400 group-hover:text-gray-600 transition-colors duration-200">
+    {name}
+  </span>
 </div>
