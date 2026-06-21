@@ -4,8 +4,10 @@ export const experiences = [
     end: "Present",
     role: "Automation Engineer",
     company: "Level One Robotics and Controls, Inc.",
-    description: [],
-    skills: [],
+    description: [
+      "Developing automation software for industrial robotics systems in a fast-paced manufacturing environment.",
+    ],
+    skills: ["Automation", "Robotics", "Controls Engineering"],
   },
   {
     start: "2022-09",
@@ -13,11 +15,11 @@ export const experiences = [
     role: "Full Stack Developer",
     company: "Windsor Mold Group",
     description: [
-      "Developed a full-stack security management application using C#, JavaScript, ASP.NET Core MVC, and utilized DevExpress to create a responsive dashboard.",
-      "Designed and refactored REST APIs to optimize key Epicor ERP operations, which significantly enhanced efficiency by over 90%.",
+      "Developed a full-stack security management application using C#, JavaScript, ASP.NET Core MVC, and DevExpress to create a responsive dashboard.",
+      "Designed and refactored REST APIs to optimize key Epicor ERP operations, enhancing efficiency by over 90%.",
       "Contributed to sprint planning sessions and team code reviews in an Agile environment while managing tasks with Jira.",
     ],
-    skills: ["JavaScript", "C#/.NET", "REST APIs"],
+    skills: ["JavaScript", "C#/.NET", "REST APIs", "ASP.NET Core", "Agile"],
   },
   {
     start: "2022-01",
@@ -25,10 +27,10 @@ export const experiences = [
     role: "Service Desk Technician",
     company: "Windsor Mold Group",
     description: [
-      "Published documentation for software issues, effectively reducing the volume of related support tickets by 85%.",
-      "Monitored and resolved on-call and ServiceNow incidents in real-time by troubleshooting software and hardware related issues.",
+      "Published documentation for software issues, reducing the volume of related support tickets by 85%.",
+      "Monitored and resolved on-call and ServiceNow incidents in real-time by troubleshooting software and hardware issues.",
     ],
-    skills: [],
+    skills: ["ServiceNow", "Technical Writing", "IT Support"],
   },
   {
     start: "2021-05",
@@ -36,9 +38,9 @@ export const experiences = [
     role: "IT Technician",
     company: "Kautex Textron",
     description: [
-      "Provided technical support to end-users and promptly resolved hardware, software, and network issues to improve employee productivity.",
+      "Provided technical support to end-users and resolved hardware, software, and network issues to improve productivity.",
       "Maintained, configured, and deployed devices while researching new tools to increase production efficiency.",
     ],
-    skills: [],
+    skills: ["Hardware", "Networking", "Device Management"],
   },
 ];
