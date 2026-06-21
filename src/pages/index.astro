@@ -4,6 +4,7 @@ import Experience from '../components/Experience.astro';
 import Navbar from '../components/Navbar.astro';
 import Technologies from '../components/Technologies.astro';
 import HomeHeader from '../components/HomeHeader.astro';
+import PageShapes from '../components/PageShapes.astro';
 import { experiences } from '../data/experiences';
 
 const lastModified = new Date().toLocaleDateString("en-US", {
@@ -20,32 +21,23 @@ const lastModified = new Date().toLocaleDateString("en-US", {
       LAST MODIFIED: {lastModified}
     </div>
 
+    <!-- Fixed background shapes throughout the page -->
+    <PageShapes />
+
     <Navbar />
     <HomeHeader />
 
-    <!-- <div class="w-full max-w-5xl mx-auto px-6 md:px-8">
+    <!-- Tech section -->
+    <div class="max-w-5xl mx-auto">
       <Technologies />
-    </div> -->
+    </div>
 
-    <!-- <section class="w-full max-w-5xl mx-auto px-6 md:px-8 py-16">
-      <p class="section-label mb-3">Career</p>
-      <h2 class="exp-heading text-3xl font-bold mb-12 text-gray-500">
-        Professional Experience
-      </h2>
-      <div class="w-full flex flex-col gap-5">
-        {experiences.map((exp) => (
-          <Experience {...exp} />
-        ))}
-      </div>
-    </section> -->
-
+    <!-- Experience section -->
     <section class="w-full px-6 md:px-12 lg:px-20 py-16">
       <p class="section-label mb-3">Career</p>
-
       <h2 class="exp-heading text-3xl font-bold mb-12 text-gray-500">
         Professional Experience
       </h2>
-
       <div class="flex flex-col gap-5">
         {experiences.map((exp) => (
           <Experience {...exp} />
@@ -53,7 +45,7 @@ const lastModified = new Date().toLocaleDateString("en-US", {
       </div>
     </section>
 
-    <footer class="w-full max-w-5xl mx-auto px-6 md:px-8 py-10 mt-8 border-t border-gray-200">
+    <footer class="w-full px-6 md:px-12 lg:px-20 py-10 mt-8 border-t border-gray-200">
       <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 font-mono text-xs">
         <p>© {new Date().getFullYear()} Marina Zjalic</p>
         <p class="text-[#3C8FA8]">Built with Astro + Tailwind CSS</p>
