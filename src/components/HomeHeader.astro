@@ -5,16 +5,16 @@ import HeroFloating from './HeroFloating.astro';
 <div
   class="relative flex flex-col lg:flex-row lg:min-h-[88vh] items-center px-8 md:px-16 lg:px-24 pt-8 pb-8 md:pt-0 md:pb-0 overflow-hidden"
 >
-  <!-- Floating shapes (top-right) -->
   <HeroFloating />
 
-  <!-- Hero text -->
   <div class="max-w-2xl relative z-10">
+    <!-- Eyebrow -->
     <div class="flex flex-row items-center mb-6 gap-3">
       <div class="bg-[#3C8FA8] w-16 h-[1.5px]"></div>
       <p class="section-label">Software Developer</p>
     </div>
 
+    <!-- Name -->
     <h1 class="hero-name font-bold tracking-tighter leading-[0.88] mb-7">
       <span class="block text-[#5b7692] text-7xl sm:text-8xl lg:text-[9rem]"
         >Marina</span
@@ -26,19 +26,26 @@ import HeroFloating from './HeroFloating.astro';
       </span>
     </h1>
 
-    <div class="flex flex-wrap items-center gap-2 mt-2">
-      <span class="text-[#3C8FA8] font-mono text-sm">&lt;dev&gt;</span>
-      <p class="typed-text text-lg sm:text-xl lg:text-2xl text-gray-600">
-        <span id="typed-text"></span><span class="cursor"></span>
-      </p>
-      <span
-        class="text-[#3C8FA8] font-mono text-sm"
-        id="closing-tag"
-        style="opacity: 0"
-        >&lt;/dev&gt;</span
-      >
+    <!-- Typing sequence: <dev> → phrase → </dev> -->
+    <div class="typing-wrap">
+      <!-- Opening tag typed first -->
+      <div class="tag-line">
+        <span id="open-tag" class="dev-tag"></span
+        ><span class="cursor" id="cursor-open"></span>
+      </div>
+      <!-- Phrase typed second, fixed height so layout never shifts -->
+      <div class="typed-line">
+        <span id="typed-text"></span
+        ><span class="cursor" id="cursor-phrase" style="display: none"></span>
+      </div>
+      <!-- Closing tag typed last -->
+      <div class="tag-line">
+        <span id="close-tag" class="dev-tag"></span
+        ><span class="cursor" id="cursor-close" style="display: none"></span>
+      </div>
     </div>
 
+    <!-- CTAs -->
     <div class="flex flex-wrap gap-4 mt-10">
       <a
         href="/portfolio"
@@ -60,8 +67,69 @@ import HeroFloating from './HeroFloating.astro';
   .hero-name {
     font-family: Georgia, "Times New Roman", serif;
   }
-  .typed-text {
+
+  .typing-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-top: 8px;
+  }
+
+  .tag-line {
+    min-height: 1.4rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .dev-tag {
+    font-family: "Inter", monospace;
+    font-size: 0.8rem;
+    color: #3c8fa8;
+    line-height: 1.4;
+  }
+
+  .typed-line {
     font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    color: #4b5563;
+    /* Fixed height — layout never shifts as characters are typed */
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  @media (min-width: 640px) {
+    .typed-line {
+      font-size: 1.5rem;
+      min-height: 2.25rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .typed-line {
+      font-size: 1.875rem;
+      min-height: 2.75rem;
+    }
+  }
+
+  /* Single cursor style, toggled between elements via display */
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: #3c8fa8;
+    margin-left: 1px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 </style>
 
@@ -72,35 +140,95 @@ import HeroFloating from './HeroFloating.astro';
     "Full-stack developer. Problem solver.",
   ];
 
+  const OPEN = "<dev>";
+  const CLOSE = "</dev>";
+  const PAUSE_AFTER_OPEN = 300; // ms pause after <dev> finishes
+  const PAUSE_AFTER_PHRASE = 1800; // ms pause after phrase finishes
+  const PAUSE_AFTER_CLOSE = 1400; // ms pause before deleting
+  const SPEED_TYPE = 65;
+  const SPEED_DELETE = 40;
+
+  const elOpen = document.getElementById("open-tag");
+  const elPhrase = document.getElementById("typed-text");
+  const elClose = document.getElementById("close-tag");
+  const curOpen = document.getElementById("cursor-open");
+  const curPhrase = document.getElementById("cursor-phrase");
+  const curClose = document.getElementById("cursor-close");
+
   let phraseIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  const el = document.getElementById("typed-text");
-  const closingTag = document.getElementById("closing-tag");
 
-  function type() {
-    const current = phrases[phraseIndex];
-    if (isDeleting) {
-      el.textContent = current.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      el.textContent = current.substring(0, charIndex + 1);
-      charIndex++;
-    }
-
-    if (!isDeleting && charIndex === current.length) {
-      closingTag.style.opacity = "1";
-      setTimeout(() => {
-        isDeleting = true;
-        closingTag.style.opacity = "0";
-      }, 2200);
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      phraseIndex = (phraseIndex + 1) % phrases.length;
-    }
-
-    setTimeout(type, isDeleting ? 45 : 70);
+  // Move the blinking cursor indicator to the active element
+  function setCursor(active) {
+    curOpen.style.display = active === "open" ? "inline-block" : "none";
+    curPhrase.style.display = active === "phrase" ? "inline-block" : "none";
+    curClose.style.display = active === "close" ? "inline-block" : "none";
   }
 
-  setTimeout(type, 800);
+  // Generic type-then-callback helper
+  function typeString(target, str, speed, cb) {
+    let i = 0;
+    function step() {
+      if (i <= str.length) {
+        target.textContent = str.substring(0, i);
+        i++;
+        setTimeout(step, speed);
+      } else {
+        cb();
+      }
+    }
+    step();
+  }
+
+  // Generic delete-then-callback helper
+  function deleteString(target, speed, cb) {
+    function step() {
+      if (target.textContent.length > 0) {
+        target.textContent = target.textContent.slice(0, -1);
+        setTimeout(step, speed);
+      } else {
+        cb();
+      }
+    }
+    step();
+  }
+
+  function runCycle() {
+    const phrase = phrases[phraseIndex];
+
+    // 1. Type <dev>
+    setCursor("open");
+    typeString(elOpen, OPEN, SPEED_TYPE, () => {
+      // 2. Pause, then type phrase
+      setTimeout(() => {
+        setCursor("phrase");
+        typeString(elPhrase, phrase, SPEED_TYPE, () => {
+          // 3. Pause, then type </dev>
+          setTimeout(() => {
+            setCursor("close");
+            typeString(elClose, CLOSE, SPEED_TYPE, () => {
+              // 4. Pause, then delete </dev>
+              setTimeout(() => {
+                deleteString(elClose, SPEED_DELETE, () => {
+                  // 5. Delete phrase
+                  setCursor("phrase");
+                  deleteString(elPhrase, SPEED_DELETE, () => {
+                    // 6. Delete <dev>
+                    setCursor("open");
+                    deleteString(elOpen, SPEED_DELETE, () => {
+                      // 7. Next phrase
+                      phraseIndex = (phraseIndex + 1) % phrases.length;
+                      setTimeout(runCycle, 200);
+                    });
+                  });
+                });
+              }, PAUSE_AFTER_CLOSE);
+            });
+          }, PAUSE_AFTER_PHRASE);
+        });
+      }, PAUSE_AFTER_OPEN);
+    });
+  }
+
+  // Kick off after a short initial delay
+  setTimeout(runCycle, 600);
 </script>
