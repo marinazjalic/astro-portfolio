@@ -1,16 +1,12 @@
 ---
 interface Props {
-    skill: string
+  skill: string;
 }
-
-const { skill }  = Astro.props
-
+const { skill } = Astro.props;
 ---
 
-<!-- Temp styling for tag elements -->
-<div class="bg-[#D946A6]/20  w-fit p-1 text-[12px] rounded text-[#D946A6] font-normal">
-  <p>{skill}</p>
-</div>
-
-
-
+<span
+  class="inline-block bg-[#D946A6]/15 px-2 py-0.5 text-[11px] rounded text-[#C17B9E] font-mono font-medium tracking-wide"
+>
+  {skill}
+</span>

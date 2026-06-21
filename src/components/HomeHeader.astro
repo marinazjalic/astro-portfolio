@@ -15,7 +15,7 @@ import HeroFloating from './HeroFloating.astro';
       <p class="section-label">Software Developer</p>
     </div>
 
-    <h1 class="font-bold tracking-tighter leading-[0.88] mb-7 header-text">
+    <h1 class="hero-name font-bold tracking-tighter leading-[0.88] mb-7">
       <span class="block text-[#5b7692] text-7xl sm:text-8xl lg:text-[9rem]"
         >Marina</span
       >
@@ -28,7 +28,7 @@ import HeroFloating from './HeroFloating.astro';
 
     <div class="flex flex-wrap items-center gap-2 mt-2">
       <span class="text-[#3C8FA8] font-mono text-sm">&lt;dev&gt;</span>
-      <p class="default-text text-lg sm:text-xl lg:text-2xl text-gray-600">
+      <p class="typed-text text-lg sm:text-xl lg:text-2xl text-gray-600">
         <span id="typed-text"></span><span class="cursor"></span>
       </p>
       <span
@@ -55,6 +55,15 @@ import HeroFloating from './HeroFloating.astro';
     </div>
   </div>
 </div>
+
+<style>
+  .hero-name {
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .typed-text {
+    font-family: Georgia, "Times New Roman", serif;
+  }
+</style>
 
 <script is:inline>
   const phrases = [
