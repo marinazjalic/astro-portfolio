@@ -18,6 +18,8 @@ const {
   liveUrl,
   imagePlaceholder = "#d4e9ef",
 } = Astro.props;
+
+const swatchStyle = `background-color: ${imagePlaceholder}`;
 ---
 
 <div class="w-full max-w-4xl mx-auto px-4 reveal">
@@ -25,10 +27,10 @@ const {
     class="relative w-full flex flex-col md:flex-row rounded-xl border border-[#d6d2c4] shadow-sm bg-white/50 overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-1"
   >
     <!-- Image / color swatch -->
-   <div
-  class="w-full md:w-[38%] h-48 md:h-auto flex-shrink-0 flex items-center justify-center"
-  style={{ backgroundColor: imagePlaceholder }}
->
+    <div
+      class="w-full md:w-[38%] h-48 md:h-auto flex-shrink-0 flex items-center justify-center"
+      style={swatchStyle}
+    >
       <span class="font-mono text-white/60 text-xs tracking-widest uppercase">{title}</span>
     </div>
 
