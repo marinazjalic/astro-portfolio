@@ -5,8 +5,19 @@ interface Props {
 const { skill } = Astro.props;
 ---
 
-<span
-  class="inline-block bg-[#D946A6]/15 px-2 py-0.5 text-[11px] rounded text-[#C17B9E] font-mono font-medium tracking-wide"
->
-  {skill}
-</span>
+<span class="tag-pill">{skill}</span>
+
+<style>
+  .tag-pill {
+    display: inline-block;
+    font-family: 'Inter', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    background: rgba(60, 143, 168, 0.1);
+    color: #2d7a91;
+    border: 0.5px solid rgba(60, 143, 168, 0.25);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+</style>
