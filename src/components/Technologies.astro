@@ -1,29 +1,52 @@
 ---
-import TechnologyCard from '../components/TechnologyCard.astro'
-import {technologies} from '../data/technologies'
+import TechnologyCard from './TechnologyCard.astro';
+import { technologies } from '../data/technologies';
 ---
 
-<div class="max-w-6xl mx-auto px-4 py-8 text-center">
-  <!-- <h2 class="text-4xl font-bold mb-2 ">Technologies</h2> -->
-   <h2 class="text-4xl font-bold mb-5 bg-gradient-to-r from-[#3C8FA8] via-[#C17B9E] to-[#3C8FA8] bg-clip-text text-transparent">
-  Technologies
-</h2>
+<section class="tech-section">
+  <p class="section-label mb-3">Stack</p>
+  <h2 class="tech-heading">Technologies</h2>
+  <p class="tech-sub">Tools and frameworks I use to bring ideas to life</p>
 
-  <p class="mb-6 text-gray-500">
-    <span class="text-[#3C8FA8] text-sm">&lt;</span>
-    Tools and frameworks I use to bring ideas to life
-    <span class="text-[#3C8FA8] text-sm">/ &gt;</span>
-  </p>
-
-  <!-- <div
-    class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 space-y-4 tech-grid"
-  >
-    {technologies.map(tech => <TechnologyCard {...tech} />)}
-  </div> -->
-
-   <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3">
+  <div class="tech-grid">
     {technologies.map(tech => <TechnologyCard {...tech} />)}
   </div>
-</div>
+</section>
 
+<style>
+  .tech-section {
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
 
+  .tech-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    background: linear-gradient(90deg, #3C8FA8, #C17B9E, #3C8FA8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tech-sub {
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin: 0 0 2.5rem;
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (min-width: 480px)  { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 640px)  { .tech-grid { grid-template-columns: repeat(5, 1fr); } }
+  @media (min-width: 768px)  { .tech-grid { grid-template-columns: repeat(6, 1fr); } }
+  @media (min-width: 1024px) { .tech-grid { grid-template-columns: repeat(8, 1fr); } }
+</style>
