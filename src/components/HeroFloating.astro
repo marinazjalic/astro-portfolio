@@ -2,21 +2,39 @@
 ---
 
 <div class="hero-shapes" aria-hidden="true">
+  <!-- Circles -->
+  <div class="shape circle-xl"></div>
   <div class="shape circle-lg"></div>
   <div class="shape circle-md"></div>
   <div class="shape circle-sm"></div>
+  <div class="shape circle-xs"></div>
+
+  <!-- Squares -->
   <div class="shape square-lg"></div>
+  <div class="shape square-md"></div>
   <div class="shape square-sm"></div>
+
+  <!-- Dots -->
   <div class="shape dot dot-1"></div>
   <div class="shape dot dot-2"></div>
   <div class="shape dot dot-3"></div>
   <div class="shape dot dot-4"></div>
+  <div class="shape dot dot-5"></div>
+  <div class="shape dot dot-6"></div>
+
+  <!-- Plus crosses -->
   <div class="plus plus-1">
     <span class="plus-h"></span><span class="plus-v"></span>
   </div>
   <div class="plus plus-2">
     <span class="plus-h"></span><span class="plus-v"></span>
   </div>
+  <div class="plus plus-3">
+    <span class="plus-h teal"></span><span class="plus-v teal"></span>
+  </div>
+
+  <!-- Triangle-ish: rotated square with fill -->
+  <div class="shape diamond"></div>
 </div>
 
 <style>
@@ -24,19 +42,20 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 40%;
+    width: 45%;
     height: 100%;
     pointer-events: none;
     overflow: hidden;
   }
 
+  /* ── Keyframes — bigger amplitude ─────────── */
   @keyframes floatA {
     0%,
     100% {
       transform: translateY(0px) rotate(0deg);
     }
     50% {
-      transform: translateY(-14px) rotate(5deg);
+      transform: translateY(-22px) rotate(8deg);
     }
   }
   @keyframes floatB {
@@ -45,7 +64,7 @@
       transform: translateY(0px) rotate(0deg);
     }
     50% {
-      transform: translateY(-10px) rotate(-4deg);
+      transform: translateY(-18px) rotate(-6deg);
     }
   }
   @keyframes floatC {
@@ -54,7 +73,7 @@
       transform: rotate(20deg) translateY(0px);
     }
     50% {
-      transform: rotate(28deg) translateY(-10px);
+      transform: rotate(34deg) translateY(-16px);
     }
   }
   @keyframes floatD {
@@ -63,18 +82,50 @@
       transform: rotate(-10deg) translateY(0px);
     }
     50% {
-      transform: rotate(-4deg) translateY(-8px);
+      transform: rotate(2deg) translateY(-14px);
+    }
+  }
+  @keyframes floatE {
+    0%,
+    100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-12px) translateX(8px);
+    }
+    66% {
+      transform: translateY(-20px) translateX(-6px);
+    }
+  }
+  @keyframes floatF {
+    0%,
+    100% {
+      transform: rotate(45deg) translateY(0px);
+    }
+    50% {
+      transform: rotate(55deg) translateY(-14px);
     }
   }
   @keyframes pulse {
     0%,
     100% {
-      opacity: 0.45;
+      opacity: 0.5;
       transform: scale(1);
     }
     50% {
-      opacity: 0.25;
-      transform: scale(1.15);
+      opacity: 0.2;
+      transform: scale(1.3);
+    }
+  }
+  @keyframes pulseSlow {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.12;
+      transform: scale(1.2);
     }
   }
 
@@ -82,105 +133,167 @@
     position: absolute;
   }
 
-  /* Circles */
-  .circle-lg {
-    width: clamp(80px, 14vw, 160px);
-    height: clamp(80px, 14vw, 160px);
+  /* ── Circles ───────────────────────────────── */
+  .circle-xl {
+    width: clamp(100px, 16vw, 200px);
+    height: clamp(100px, 16vw, 200px);
     border-radius: 50%;
     border: 1.5px solid #3c8fa8;
-    opacity: 0.18;
-    top: 6%;
-    right: 8%;
-    animation: floatA 9s ease-in-out infinite;
+    opacity: 0.2;
+    top: 3%;
+    right: 6%;
+    animation: floatA 7s ease-in-out infinite;
+  }
+  .circle-lg {
+    width: clamp(60px, 10vw, 120px);
+    height: clamp(60px, 10vw, 120px);
+    border-radius: 50%;
+    border: 1px solid #c17b9e;
+    opacity: 0.22;
+    top: 10%;
+    right: 32%;
+    animation: floatB 9s ease-in-out infinite;
+    animation-delay: 1s;
   }
   .circle-md {
-    width: clamp(44px, 7vw, 80px);
-    height: clamp(44px, 7vw, 80px);
+    width: clamp(44px, 7vw, 84px);
+    height: clamp(44px, 7vw, 84px);
     border-radius: 50%;
     border: 1.5px solid #c17b9e;
-    opacity: 0.2;
-    top: 38%;
-    right: 3%;
-    animation: floatB 7s ease-in-out infinite;
-    animation-delay: 1.2s;
+    opacity: 0.22;
+    top: 42%;
+    right: 2%;
+    animation: floatE 8s ease-in-out infinite;
+    animation-delay: 0.8s;
   }
   .circle-sm {
-    width: clamp(22px, 3.5vw, 38px);
-    height: clamp(22px, 3.5vw, 38px);
+    width: clamp(26px, 4vw, 46px);
+    height: clamp(26px, 4vw, 46px);
     border-radius: 50%;
+    border: 1.5px solid #3c8fa8;
+    opacity: 0.25;
+    top: 65%;
+    right: 22%;
+    animation: floatA 10s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  .circle-xs {
+    width: clamp(14px, 2vw, 24px);
+    height: clamp(14px, 2vw, 24px);
+    border-radius: 50%;
+    border: 1px solid #3c8fa8;
+    opacity: 0.28;
+    top: 80%;
+    right: 38%;
+    animation: floatB 6s ease-in-out infinite;
+    animation-delay: 3.5s;
+  }
+
+  /* ── Squares ───────────────────────────────── */
+  .square-lg {
+    width: clamp(36px, 5.5vw, 66px);
+    height: clamp(36px, 5.5vw, 66px);
+    border: 1.5px solid #c17b9e;
+    opacity: 0.2;
+    top: 18%;
+    right: 14%;
+    animation: floatC 11s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+  .square-md {
+    width: clamp(22px, 3.2vw, 40px);
+    height: clamp(22px, 3.2vw, 40px);
     border: 1.5px solid #3c8fa8;
     opacity: 0.22;
-    top: 68%;
-    right: 18%;
-    animation: floatA 8s ease-in-out infinite;
-    animation-delay: 2.5s;
-  }
-
-  /* Squares */
-  .square-lg {
-    width: clamp(32px, 5vw, 60px);
-    height: clamp(32px, 5vw, 60px);
-    border: 1.5px solid #c17b9e;
-    opacity: 0.18;
-    top: 14%;
-    right: 28%;
-    animation: floatC 10s ease-in-out infinite;
-    animation-delay: 0.5s;
+    top: 55%;
+    right: 8%;
+    animation: floatD 9s ease-in-out infinite;
+    animation-delay: 2.2s;
   }
   .square-sm {
-    width: clamp(16px, 2.5vw, 28px);
-    height: clamp(16px, 2.5vw, 28px);
-    border: 1.5px solid #3c8fa8;
-    opacity: 0.2;
-    top: 55%;
-    right: 6%;
-    animation: floatD 8s ease-in-out infinite;
-    animation-delay: 3s;
+    width: clamp(12px, 2vw, 22px);
+    height: clamp(12px, 2vw, 22px);
+    border: 1px solid #c17b9e;
+    opacity: 0.25;
+    top: 76%;
+    right: 5%;
+    animation: floatC 7s ease-in-out infinite;
+    animation-delay: 1.5s;
   }
 
-  /* Dots */
+  /* ── Diamond ───────────────────────────────── */
+  .diamond {
+    width: clamp(18px, 2.8vw, 34px);
+    height: clamp(18px, 2.8vw, 34px);
+    border: 1.5px solid #3c8fa8;
+    opacity: 0.2;
+    top: 35%;
+    right: 28%;
+    animation: floatF 8s ease-in-out infinite;
+    animation-delay: 1.2s;
+  }
+
+  /* ── Dots ──────────────────────────────────── */
   .dot {
     border-radius: 50%;
-    animation: pulse 4s ease-in-out infinite;
   }
   .dot-1 {
-    width: clamp(5px, 0.8vw, 8px);
-    height: clamp(5px, 0.8vw, 8px);
+    width: clamp(6px, 1vw, 10px);
+    height: clamp(6px, 1vw, 10px);
     background: #3c8fa8;
-    opacity: 0.45;
-    top: 22%;
-    right: 14%;
+    top: 8%;
+    right: 18%;
+    animation: pulse 3.5s ease-in-out infinite;
     animation-delay: 0s;
   }
   .dot-2 {
-    width: clamp(4px, 0.6vw, 6px);
-    height: clamp(4px, 0.6vw, 6px);
+    width: clamp(5px, 0.8vw, 8px);
+    height: clamp(5px, 0.8vw, 8px);
     background: #c17b9e;
-    opacity: 0.4;
-    top: 48%;
-    right: 22%;
-    animation-delay: 1s;
+    top: 26%;
+    right: 42%;
+    animation: pulse 4s ease-in-out infinite;
+    animation-delay: 0.7s;
   }
   .dot-3 {
-    width: clamp(6px, 0.9vw, 10px);
-    height: clamp(6px, 0.9vw, 10px);
+    width: clamp(7px, 1.1vw, 12px);
+    height: clamp(7px, 1.1vw, 12px);
     background: #3c8fa8;
-    opacity: 0.35;
-    top: 78%;
-    right: 10%;
-    animation-delay: 2s;
+    top: 50%;
+    right: 26%;
+    animation: pulseSlow 5s ease-in-out infinite;
+    animation-delay: 1.4s;
   }
   .dot-4 {
-    width: clamp(4px, 0.5vw, 6px);
-    height: clamp(4px, 0.5vw, 6px);
+    width: clamp(4px, 0.6vw, 7px);
+    height: clamp(4px, 0.6vw, 7px);
     background: #c17b9e;
-    opacity: 0.4;
-    top: 30%;
-    right: 36%;
-    animation-delay: 0.6s;
+    top: 68%;
+    right: 14%;
+    animation: pulse 3s ease-in-out infinite;
+    animation-delay: 2.1s;
+  }
+  .dot-5 {
+    width: clamp(8px, 1.2vw, 14px);
+    height: clamp(8px, 1.2vw, 14px);
+    background: #3c8fa8;
+    opacity: 0.3;
+    top: 88%;
+    right: 30%;
+    animation: pulseSlow 6s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  .dot-6 {
+    width: clamp(4px, 0.6vw, 7px);
+    height: clamp(4px, 0.6vw, 7px);
+    background: #c17b9e;
+    top: 92%;
+    right: 8%;
+    animation: pulse 4.5s ease-in-out infinite;
+    animation-delay: 1.8s;
   }
 
-  /* Plus crosses */
+  /* ── Plus crosses ──────────────────────────── */
   .plus {
     position: absolute;
   }
@@ -189,24 +302,30 @@
     display: block;
     position: absolute;
     background: #c17b9e;
-    opacity: 0.3;
+    opacity: 0.32;
     border-radius: 1px;
   }
+  .plus-h.teal,
+  .plus-v.teal {
+    background: #3c8fa8;
+    opacity: 0.3;
+  }
+
   .plus-1 {
-    top: 60%;
-    right: 30%;
-    animation: floatB 9s ease-in-out infinite;
-    animation-delay: 1.8s;
+    top: 30%;
+    right: 4%;
+    animation: floatB 8s ease-in-out infinite;
+    animation-delay: 0.6s;
   }
   .plus-1 .plus-h {
-    width: clamp(10px, 1.6vw, 18px);
+    width: clamp(12px, 2vw, 20px);
     height: 1.5px;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
   }
   .plus-1 .plus-v {
-    height: clamp(10px, 1.6vw, 18px);
+    height: clamp(12px, 2vw, 20px);
     width: 1.5px;
     left: 50%;
     top: 0;
@@ -214,57 +333,104 @@
   }
 
   .plus-2 {
-    top: 20%;
-    right: 42%;
-    animation: floatA 11s ease-in-out infinite;
-    animation-delay: 3.5s;
+    top: 60%;
+    right: 34%;
+    animation: floatA 10s ease-in-out infinite;
+    animation-delay: 2.8s;
   }
   .plus-2 .plus-h {
-    width: clamp(8px, 1.2vw, 14px);
+    width: clamp(10px, 1.6vw, 17px);
     height: 1.5px;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
-    background: #3c8fa8;
-    opacity: 0.28;
   }
   .plus-2 .plus-v {
-    height: clamp(8px, 1.2vw, 14px);
+    height: clamp(10px, 1.6vw, 17px);
     width: 1.5px;
     left: 50%;
     top: 0;
     transform: translateX(-50%);
-    background: #3c8fa8;
-    opacity: 0.28;
   }
 
-  /* Hide on small screens where they'd crowd the text */
+  .plus-3 {
+    top: 84%;
+    right: 20%;
+    animation: floatB 7s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .plus-3 .plus-h {
+    width: clamp(8px, 1.3vw, 14px);
+    height: 1.5px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .plus-3 .plus-v {
+    height: clamp(8px, 1.3vw, 14px);
+    width: 1.5px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  /* ── Responsive ────────────────────────────── */
+  @media (max-width: 1024px) {
+    .hero-shapes {
+      width: 48%;
+    }
+    .circle-xl {
+      opacity: 0.16;
+    }
+  }
+
   @media (max-width: 640px) {
     .hero-shapes {
       width: 100%;
-      height: 100%;
-      opacity: 0.5;
+      opacity: 0.55;
     }
-    .circle-lg {
+    /* Keep only a handful of shapes so text stays readable */
+    .circle-lg,
+    .circle-md,
+    .circle-xs,
+    .square-md,
+    .square-sm,
+    .diamond,
+    .dot-2,
+    .dot-4,
+    .dot-6,
+    .plus-2,
+    .plus-3 {
+      display: none;
+    }
+    /* Reposition survivors to top-right corner */
+    .circle-xl {
       top: 2%;
+      right: 1%;
+    }
+    .circle-sm {
+      top: 28%;
       right: 2%;
     }
-    .circle-md {
-      display: none;
-    }
     .square-lg {
-      top: 5%;
-      right: 40%;
+      top: 4%;
+      right: 38%;
     }
-    .square-sm {
-      display: none;
+    .dot-1 {
+      top: 6%;
+      right: 28%;
     }
-    .dot-2,
-    .dot-4 {
-      display: none;
+    .dot-3 {
+      top: 20%;
+      right: 6%;
     }
-    .plus-2 {
-      display: none;
+    .dot-5 {
+      top: 36%;
+      right: 10%;
+    }
+    .plus-1 {
+      top: 14%;
+      right: 18%;
     }
   }
 
@@ -272,7 +438,7 @@
     .shape,
     .plus,
     .dot {
-      animation: none;
+      animation: none !important;
     }
   }
 </style>
