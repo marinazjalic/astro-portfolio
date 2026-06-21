@@ -1,14 +1,8 @@
 ---
 ---
 
-<!--
-  Fixed shape clusters that appear throughout the page as the user scrolls.
-  Uses position:fixed so they float over the content without affecting layout.
-  Same animation keyframes and shape vocabulary as HeroFloating.
-  Hidden on mobile to avoid cluttering small screens.
--->
 <div class="page-shapes" aria-hidden="true">
-  <!-- ── Cluster A: left side, mid-page (tech section area) ── -->
+  <!-- ── Cluster A: left side, tech section area ── -->
   <div class="s ca-circle-lg"></div>
   <div class="s ca-circle-sm"></div>
   <div class="s ca-square"></div>
@@ -18,7 +12,7 @@
     <span class="ph pink"></span><span class="pv pink"></span>
   </div>
 
-  <!-- ── Cluster B: right side, lower-mid (experience section area) ── -->
+  <!-- ── Cluster B: right side, experience section area ── -->
   <div class="s cb-circle-lg"></div>
   <div class="s cb-circle-md"></div>
   <div class="s cb-diamond"></div>
@@ -37,10 +31,27 @@
   <div class="plus cc-plus">
     <span class="ph pink"></span><span class="pv pink"></span>
   </div>
+
+  <!-- ── Cluster D: bottom of page, left + right ── -->
+  <div class="s cd-circle-lg"></div>
+  <div class="s cd-circle-sm"></div>
+  <div class="s cd-circle-xs"></div>
+  <div class="s cd-square-lg"></div>
+  <div class="s cd-square-sm"></div>
+  <div class="s cd-diamond"></div>
+  <div class="s cd-dot-1"></div>
+  <div class="s cd-dot-2"></div>
+  <div class="s cd-dot-3"></div>
+  <div class="s cd-dot-4"></div>
+  <div class="plus cd-plus-1">
+    <span class="ph teal"></span><span class="pv teal"></span>
+  </div>
+  <div class="plus cd-plus-2">
+    <span class="ph pink"></span><span class="pv pink"></span>
+  </div>
 </div>
 
 <style>
-  /* ── Shared keyframes (identical to HeroFloating) ── */
   @keyframes floatA {
     0%,
     100% {
@@ -110,31 +121,47 @@
     }
   }
 
-  /* ── Container ── */
+  /*
+    Stretches to cover the entire page height so absolute-positioned
+    children can be placed anywhere along the scroll.
+  */
   .page-shapes {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
   }
 
-  /* Hide on small screens */
   @media (max-width: 768px) {
     .page-shapes {
-      display: none;
+      opacity: 0.6;
+    }
+    /* Tighten shapes to edges so they don't overlap content */
+    .ca-circle-lg,
+    .cb-circle-lg,
+    .cc-circle,
+    .cd-circle-lg {
+      opacity: 0.12;
+    }
+    .ca-square,
+    .cb-diamond,
+    .cc-square-lg,
+    .cd-square-lg {
+      opacity: 0.12;
     }
   }
 
-  /* ── Base shape types ── */
   .s {
     position: absolute;
   }
-
-  /* ── Plus helper ── */
   .plus {
     position: absolute;
   }
+
   .ph,
   .pv {
     display: block;
@@ -152,16 +179,14 @@
     opacity: 0.26;
   }
 
-  /* ═══════════════════════════════════════
-     CLUSTER A — left side, ~33% down page
-  ═══════════════════════════════════════ */
+  /* ── Cluster A: left, ~30–50% of page height ── */
   .ca-circle-lg {
     width: clamp(70px, 9vw, 130px);
     height: clamp(70px, 9vw, 130px);
     border-radius: 50%;
     border: 1.5px solid #3c8fa8;
     opacity: 0.16;
-    top: 32vh;
+    top: 32%;
     left: 2vw;
     animation: floatA 9s ease-in-out infinite;
     animation-delay: 0.4s;
@@ -172,7 +197,7 @@
     border-radius: 50%;
     border: 1px solid #c17b9e;
     opacity: 0.2;
-    top: 44vh;
+    top: 44%;
     left: 8vw;
     animation: floatB 7s ease-in-out infinite;
     animation-delay: 1.6s;
@@ -182,7 +207,7 @@
     height: clamp(28px, 4vw, 52px);
     border: 1.5px solid #c17b9e;
     opacity: 0.17;
-    top: 36vh;
+    top: 36%;
     left: 11vw;
     animation: floatC 11s ease-in-out infinite;
     animation-delay: 0.8s;
@@ -192,7 +217,7 @@
     height: clamp(5px, 0.8vw, 9px);
     border-radius: 50%;
     background: #3c8fa8;
-    top: 30vh;
+    top: 30%;
     left: 14vw;
     animation: pulse 3.8s ease-in-out infinite;
     animation-delay: 0s;
@@ -202,13 +227,13 @@
     height: clamp(4px, 0.6vw, 7px);
     border-radius: 50%;
     background: #c17b9e;
-    top: 48vh;
+    top: 48%;
     left: 4vw;
     animation: pulse 4.2s ease-in-out infinite;
     animation-delay: 1.1s;
   }
   .ca-plus {
-    top: 40vh;
+    top: 40%;
     left: 17vw;
     animation: floatB 8.5s ease-in-out infinite;
     animation-delay: 2s;
@@ -228,16 +253,14 @@
     transform: translateX(-50%);
   }
 
-  /* ═══════════════════════════════════════
-     CLUSTER B — right side, ~58% down page
-  ═══════════════════════════════════════ */
+  /* ── Cluster B: right, ~55–75% of page height ── */
   .cb-circle-lg {
     width: clamp(80px, 11vw, 150px);
     height: clamp(80px, 11vw, 150px);
     border-radius: 50%;
     border: 1.5px solid #c17b9e;
     opacity: 0.15;
-    top: 56vh;
+    top: 56%;
     right: 2vw;
     animation: floatB 10s ease-in-out infinite;
     animation-delay: 0.6s;
@@ -248,7 +271,7 @@
     border-radius: 50%;
     border: 1px solid #3c8fa8;
     opacity: 0.2;
-    top: 68vh;
+    top: 68%;
     right: 10vw;
     animation: floatE 8s ease-in-out infinite;
     animation-delay: 1.4s;
@@ -258,7 +281,7 @@
     height: clamp(20px, 3vw, 38px);
     border: 1.5px solid #3c8fa8;
     opacity: 0.18;
-    top: 60vh;
+    top: 60%;
     right: 15vw;
     animation: floatF 9s ease-in-out infinite;
     animation-delay: 0.9s;
@@ -268,7 +291,7 @@
     height: clamp(6px, 0.9vw, 11px);
     border-radius: 50%;
     background: #c17b9e;
-    top: 54vh;
+    top: 54%;
     right: 13vw;
     animation: pulse 3.5s ease-in-out infinite;
     animation-delay: 0.3s;
@@ -278,13 +301,13 @@
     height: clamp(4px, 0.6vw, 7px);
     border-radius: 50%;
     background: #3c8fa8;
-    top: 72vh;
+    top: 72%;
     right: 5vw;
     animation: pulse 5s ease-in-out infinite;
     animation-delay: 2.2s;
   }
   .cb-plus {
-    top: 64vh;
+    top: 64%;
     right: 19vw;
     animation: floatA 9s ease-in-out infinite;
     animation-delay: 1.7s;
@@ -304,16 +327,14 @@
     transform: translateX(-50%);
   }
 
-  /* ═══════════════════════════════════════
-     CLUSTER C — centre, ~82% down page
-  ═══════════════════════════════════════ */
+  /* ── Cluster C: centre, ~80–92% of page height ── */
   .cc-circle {
     width: clamp(50px, 7vw, 100px);
     height: clamp(50px, 7vw, 100px);
     border-radius: 50%;
     border: 1px solid #3c8fa8;
     opacity: 0.15;
-    top: 80vh;
+    top: 80%;
     left: 46vw;
     animation: floatA 8s ease-in-out infinite;
     animation-delay: 1s;
@@ -323,7 +344,7 @@
     height: clamp(30px, 4.5vw, 58px);
     border: 1.5px solid #c17b9e;
     opacity: 0.16;
-    top: 84vh;
+    top: 84%;
     left: 38vw;
     animation: floatC 12s ease-in-out infinite;
     animation-delay: 0.5s;
@@ -333,7 +354,7 @@
     height: clamp(14px, 2vw, 24px);
     border: 1px solid #3c8fa8;
     opacity: 0.2;
-    top: 88vh;
+    top: 88%;
     left: 56vw;
     animation: floatD 7s ease-in-out infinite;
     animation-delay: 3s;
@@ -343,7 +364,7 @@
     height: clamp(6px, 0.9vw, 10px);
     border-radius: 50%;
     background: #3c8fa8;
-    top: 78vh;
+    top: 78%;
     left: 52vw;
     animation: pulse 4s ease-in-out infinite;
     animation-delay: 0.8s;
@@ -353,13 +374,13 @@
     height: clamp(4px, 0.6vw, 7px);
     border-radius: 50%;
     background: #c17b9e;
-    top: 90vh;
+    top: 90%;
     left: 44vw;
     animation: pulse 3.2s ease-in-out infinite;
     animation-delay: 1.5s;
   }
   .cc-plus {
-    top: 82vh;
+    top: 82%;
     left: 61vw;
     animation: floatB 10s ease-in-out infinite;
     animation-delay: 2.4s;
@@ -372,6 +393,152 @@
     transform: translateY(-50%);
   }
   .cc-plus .pv {
+    height: clamp(10px, 1.5vw, 16px);
+    width: 1.5px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  /* ── Cluster D: bottom, 93–100% ── */
+  .cd-circle-lg {
+    width: clamp(80px, 11vw, 160px);
+    height: clamp(80px, 11vw, 160px);
+    border-radius: 50%;
+    border: 1.5px solid #3c8fa8;
+    opacity: 0.15;
+    top: 93%;
+    left: 3vw;
+    animation: floatA 10s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+  .cd-circle-sm {
+    width: clamp(28px, 4vw, 52px);
+    height: clamp(28px, 4vw, 52px);
+    border-radius: 50%;
+    border: 1px solid #c17b9e;
+    opacity: 0.2;
+    top: 97%;
+    left: 12vw;
+    animation: floatB 7.5s ease-in-out infinite;
+    animation-delay: 1.8s;
+  }
+  .cd-circle-xs {
+    width: clamp(14px, 2vw, 26px);
+    height: clamp(14px, 2vw, 26px);
+    border-radius: 50%;
+    border: 1px solid #3c8fa8;
+    opacity: 0.22;
+    top: 95%;
+    right: 22vw;
+    animation: floatB 6s ease-in-out infinite;
+    animation-delay: 3.2s;
+  }
+  .cd-square-lg {
+    width: clamp(38px, 5.5vw, 70px);
+    height: clamp(38px, 5.5vw, 70px);
+    border: 1.5px solid #c17b9e;
+    opacity: 0.16;
+    top: 94%;
+    right: 4vw;
+    animation: floatC 12s ease-in-out infinite;
+    animation-delay: 0.7s;
+  }
+  .cd-square-sm {
+    width: clamp(18px, 2.5vw, 32px);
+    height: clamp(18px, 2.5vw, 32px);
+    border: 1px solid #3c8fa8;
+    opacity: 0.2;
+    top: 98%;
+    right: 12vw;
+    animation: floatD 8s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  .cd-diamond {
+    width: clamp(20px, 3vw, 40px);
+    height: clamp(20px, 3vw, 40px);
+    border: 1.5px solid #c17b9e;
+    opacity: 0.18;
+    top: 96%;
+    left: 48vw;
+    animation: floatF 9s ease-in-out infinite;
+    animation-delay: 1.3s;
+  }
+  .cd-dot-1 {
+    width: clamp(6px, 0.9vw, 11px);
+    height: clamp(6px, 0.9vw, 11px);
+    border-radius: 50%;
+    background: #3c8fa8;
+    top: 93%;
+    left: 20vw;
+    animation: pulse 3.6s ease-in-out infinite;
+    animation-delay: 0s;
+  }
+  .cd-dot-2 {
+    width: clamp(4px, 0.6vw, 8px);
+    height: clamp(4px, 0.6vw, 8px);
+    border-radius: 50%;
+    background: #c17b9e;
+    top: 99%;
+    left: 32vw;
+    animation: pulse 4.4s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  .cd-dot-3 {
+    width: clamp(5px, 0.8vw, 9px);
+    height: clamp(5px, 0.8vw, 9px);
+    border-radius: 50%;
+    background: #c17b9e;
+    top: 95%;
+    right: 28vw;
+    animation: pulse 3.2s ease-in-out infinite;
+    animation-delay: 2.5s;
+  }
+  .cd-dot-4 {
+    width: clamp(7px, 1vw, 12px);
+    height: clamp(7px, 1vw, 12px);
+    border-radius: 50%;
+    background: #3c8fa8;
+    opacity: 0.3;
+    top: 98%;
+    right: 6vw;
+    animation: pulse 5s ease-in-out infinite;
+    animation-delay: 0.4s;
+  }
+  .cd-plus-1 {
+    top: 96%;
+    left: 26vw;
+    animation: floatA 9s ease-in-out infinite;
+    animation-delay: 1.6s;
+  }
+  .cd-plus-1 .ph {
+    width: clamp(12px, 1.8vw, 18px);
+    height: 1.5px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .cd-plus-1 .pv {
+    height: clamp(12px, 1.8vw, 18px);
+    width: 1.5px;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+  .cd-plus-2 {
+    top: 94%;
+    right: 35vw;
+    animation: floatB 8s ease-in-out infinite;
+    animation-delay: 2.8s;
+  }
+  .cd-plus-2 .ph {
+    width: clamp(10px, 1.5vw, 16px);
+    height: 1.5px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .cd-plus-2 .pv {
     height: clamp(10px, 1.5vw, 16px);
     width: 1.5px;
     left: 50%;

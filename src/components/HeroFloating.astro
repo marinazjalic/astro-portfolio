@@ -387,50 +387,98 @@
   @media (max-width: 640px) {
     .hero-shapes {
       width: 100%;
-      opacity: 0.55;
+      opacity: 0.5;
     }
-    /* Keep only a handful of shapes so text stays readable */
-    .circle-lg,
-    .circle-md,
-    .circle-xs,
-    .square-md,
-    .square-sm,
-    .diamond,
-    .dot-2,
-    .dot-4,
-    .dot-6,
-    .plus-2,
-    .plus-3 {
-      display: none;
-    }
-    /* Reposition survivors to top-right corner */
+    /* Scale down and reposition everything tightly to the top-right corner */
     .circle-xl {
-      top: 2%;
+      top: 1%;
       right: 1%;
+      width: 80px;
+      height: 80px;
+    }
+    .circle-lg {
+      top: 8%;
+      right: 28%;
+      width: 44px;
+      height: 44px;
+    }
+    .circle-md {
+      top: 18%;
+      right: 2%;
+      width: 32px;
+      height: 32px;
     }
     .circle-sm {
-      top: 28%;
-      right: 2%;
+      top: 26%;
+      right: 16%;
+      width: 20px;
+      height: 20px;
+    }
+    .circle-xs {
+      top: 32%;
+      right: 5%;
+      width: 12px;
+      height: 12px;
     }
     .square-lg {
-      top: 4%;
-      right: 38%;
+      top: 5%;
+      right: 40%;
+      width: 28px;
+      height: 28px;
+    }
+    .square-md {
+      top: 22%;
+      right: 30%;
+      width: 16px;
+      height: 16px;
+    }
+    .square-sm {
+      top: 14%;
+      right: 8%;
+      width: 12px;
+      height: 12px;
+    }
+    .diamond {
+      top: 28%;
+      right: 24%;
+      width: 14px;
+      height: 14px;
     }
     .dot-1 {
-      top: 6%;
-      right: 28%;
+      top: 4%;
+      right: 22%;
+    }
+    .dot-2 {
+      top: 10%;
+      right: 42%;
     }
     .dot-3 {
       top: 20%;
-      right: 6%;
-    }
-    .dot-5 {
-      top: 36%;
       right: 10%;
     }
-    .plus-1 {
-      top: 14%;
+    .dot-4 {
+      top: 30%;
+      right: 36%;
+    }
+    .dot-5 {
+      top: 35%;
       right: 18%;
+    }
+    .dot-6 {
+      top: 38%;
+      right: 8%;
+    }
+    .plus-1 {
+      top: 12%;
+      right: 18%;
+    }
+    .plus-2 {
+      top: 24%;
+      right: 44%;
+    }
+    .plus-3 {
+      top: 36%;
+      right: 28%;
     }
   }
 
