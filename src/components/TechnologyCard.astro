@@ -22,8 +22,8 @@ const { name, icon: Icon } = Astro.props;
     position: relative;
     aspect-ratio: 1;
     border-radius: 10px;
-    border: 0.5px solid #e0ddd8;
-    background: rgba(255, 255, 255, 0.6);
+    border: 0.5px solid #d6d2c4;
+    background: rgba(255, 255, 255, 0.55);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,25 +34,14 @@ const { name, icon: Icon } = Astro.props;
     overflow: hidden;
   }
 
-  /* Gradient background on hover */
-  .tech-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(60, 143, 168, 0.08), rgba(193, 123, 158, 0.08));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 10px;
-  }
-  .tech-card:hover::before { opacity: 1; }
-
+  /* Same hover as the experience and project cards: soft lift + shadow */
   .tech-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 16px rgba(60, 143, 168, 0.12);
-    border-color: #b8d0d8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(60, 143, 168, 0.1);
+    border-color: #c8d8de;
   }
 
-  /* Corner dot — teal base, shifts pink on hover */
+  /* Corner dot — mirrors the icon: muted blue base, brand blue on hover */
   .corner-dot {
     position: absolute;
     top: 7px;
@@ -60,11 +49,11 @@ const { name, icon: Icon } = Astro.props;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(60, 143, 168, 0.35);
+    background: #537d90;
     transition: background 0.3s ease, transform 0.3s ease;
   }
   .tech-card:hover .corner-dot {
-    background: #C17B9E;
+    background: #3C8FA8;
     transform: scale(1.3);
   }
 
@@ -78,8 +67,8 @@ const { name, icon: Icon } = Astro.props;
 
   /* Icon — use :global so it reaches the SVG Astro renders */
   .icon-wrap :global(svg) {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     color: #537d90;
     transition: color 0.3s ease, transform 0.3s ease;
   }
@@ -90,7 +79,7 @@ const { name, icon: Icon } = Astro.props;
 
   .tech-name {
     margin-top: 10px;
-    font-size: 10px;
+    font-size: 11px;
     font-family: 'Inter', monospace;
     color: #9ca3af;
     transition: color 0.2s ease;

@@ -2,12 +2,14 @@ export const experiences = [
   {
     start: "2025-07",
     end: "Present",
-    role: "Automation Engineer",
+    role: "Automation Engineer - Backend Software Developer",
     company: "Level One Robotics and Controls, Inc.",
     description: [
-      "Developing automation software for industrial robotics systems in a fast-paced manufacturing environment.",
+      "Developed Python backend services to process real-time data from multiple input streams (e.g cameras, sensors, and other hardware) for automation workflows.",
+      "Integrated computer vision and AI object models into backend pipelines, enabling real-time inference and automated decision making.",
+      "Tested, fine-tuned, and evaluated machine learning models on custom datasets to improve detection accuracy and robustness.",
     ],
-    skills: ["Automation", "Robotics", "Controls Engineering"],
+    skills: ["Python", "Computer Vision", "Machine Learning"],
   },
   {
     start: "2022-09",
@@ -15,11 +17,18 @@ export const experiences = [
     role: "Full Stack Developer",
     company: "Windsor Mold Group",
     description: [
-      "Developed a full-stack security management application using C#, JavaScript, ASP.NET Core MVC, and DevExpress to create a responsive dashboard.",
-      "Designed and refactored REST APIs to optimize key Epicor ERP operations, enhancing efficiency by over 90%.",
-      "Contributed to sprint planning sessions and team code reviews in an Agile environment while managing tasks with Jira.",
+      "Developed a full-stack security management application using C#, JavaScript, ASP.NET Core MVC, and utilized DevExpress to build responsive UIs and backend functionality for employee access controls.",
+      "Designed and implemented REST APIs to integrate with existing enterprise systems, extend application functionality, and improve processing time by over 90%.",
+      "Participated in Agile development practices including sprint planning sessions, team code reviews, and task management using Git and Jira to support feature development.",
     ],
-    skills: ["JavaScript", "C#/.NET", "REST APIs", "ASP.NET Core", "Agile"],
+    skills: [
+      "JavaScript",
+      "C#/.NET",
+      "REST APIs",
+      "ASP.NET Core",
+      "Agile",
+      "Git",
+    ],
   },
   {
     start: "2022-01",
@@ -27,10 +36,10 @@ export const experiences = [
     role: "Service Desk Technician",
     company: "Windsor Mold Group",
     description: [
-      "Published documentation for software issues, reducing the volume of related support tickets by 85%.",
-      "Monitored and resolved on-call and ServiceNow incidents in real-time by troubleshooting software and hardware issues.",
+      "Created documentation for recurring software issues, reducing related support volume by 85%.",
+      "Monitored and resolved ServiceNow incidents by troubleshooting software and hardware in a fast-paced support environment.",
     ],
-    skills: ["ServiceNow", "Technical Writing", "IT Support"],
+    skills: ["Troubleshooting", "Technical Support", "ServiceNow"],
   },
   {
     start: "2021-05",
@@ -38,9 +47,9 @@ export const experiences = [
     role: "IT Technician",
     company: "Kautex Textron",
     description: [
-      "Provided technical support to end-users and resolved hardware, software, and network issues to improve productivity.",
-      "Maintained, configured, and deployed devices while researching new tools to increase production efficiency.",
+      "Provided technical support for enterprise software, hardware, and network issues to minimize disruptions and reduce production downtime.",
+      "Configured, deployed, and maintained end-user devices while evaluating tools to improve manufacturing workflows.",
     ],
-    skills: ["Hardware", "Networking", "Device Management"],
+    skills: ["IT Support", "Networking", "Device Management"],
   },
 ];

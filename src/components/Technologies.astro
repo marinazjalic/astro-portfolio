@@ -6,7 +6,7 @@ import { technologies } from '../data/technologies';
 <section class="tech-section">
   <p class="section-label mb-3">Stack</p>
   <h2 class="tech-heading">Technologies</h2>
-  <p class="tech-sub">Tools and frameworks I use to bring ideas to life</p>
+  <p class="tech-sub">Languages, frameworks, and tools I work with regularly.</p>
 
   <div class="tech-grid">
     {technologies.map(tech => <TechnologyCard {...tech} />)}
@@ -23,15 +23,15 @@ import { technologies } from '../data/technologies';
     text-align: center;
   }
 
+  /* Matches the .exp-heading treatment on the Experience section
+     (Oswald, text-3xl, bold, gray-500) */
   .tech-heading {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: 'Oswald', sans-serif;
     font-size: 1.875rem;
+    line-height: 2.25rem;
     font-weight: 700;
+    color: #6b7280;
     margin: 0 0 10px;
-    background: linear-gradient(90deg, #3C8FA8, #C17B9E, #3C8FA8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .tech-sub {
@@ -45,8 +45,7 @@ import { technologies } from '../data/technologies';
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
   }
+  /* 8 technologies: 4 + 4 on tablets and phones, one row on desktop */
   @media (min-width: 480px)  { .tech-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (min-width: 640px)  { .tech-grid { grid-template-columns: repeat(5, 1fr); } }
-  @media (min-width: 768px)  { .tech-grid { grid-template-columns: repeat(6, 1fr); } }
   @media (min-width: 1024px) { .tech-grid { grid-template-columns: repeat(8, 1fr); } }
 </style>
