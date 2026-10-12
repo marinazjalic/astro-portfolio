@@ -23,7 +23,71 @@ import PageShapes from '../components/PageShapes.astro';
     <!-- ── Main content ───────────────────────── -->
     <main class="about-main">
 
-      <!-- Left column: bio + CTA -->
+      <!-- Left column: profile + sidebar cards -->
+      <aside class="sidebar-col">
+
+        <!-- Profile picture -->
+        <div class="side-card profile-card reveal">
+          <div class="profile-photo">
+            <span class="profile-initials" aria-hidden="true">MZ</span>
+            <img
+              src="/profile.jpg"
+              alt="Marina Zjalic"
+              class="profile-img"
+              onerror="this.style.display='none'"
+            />
+          </div>
+        </div>
+
+        <!-- Currently -->
+        <div class="side-card reveal delay-100">
+          <p class="section-label mb-4">Currently</p>
+          <ul class="side-list">
+            <li class="side-item">
+              <span class="side-arrow">▸</span>
+              <span>Automation Engineer at <strong>Level One Robotics</strong></span>
+            </li>
+            <li class="side-item">
+              <span class="side-arrow">▸</span>
+              <span>Based in Windsor, Ontario 🇨🇦</span>
+            </li>
+            <li class="side-item">
+              <span class="side-arrow">▸</span>
+              <span>Open to interesting opportunities</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Education -->
+        <div class="side-card reveal delay-200">
+          <p class="section-label mb-4">Education</p>
+          <p class="edu-degree">B.Sc. Computer Science</p>
+          <p class="edu-school">University of Windsor</p>
+          <p class="edu-year">Graduated 2023</p>
+        </div>
+
+        <!-- Interests -->
+        <div class="side-card reveal delay-300">
+          <p class="section-label mb-4">Interests</p>
+          <div class="tag-wrap">
+            {[
+              "Full-Stack Dev",
+              "Automation",
+              "Clean UI",
+              "TypeScript",
+              "C# / .NET",
+              "Open Source",
+              "React",
+              "Coffee ☕",
+            ].map(tag => (
+              <span class="interest-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- Right column: bio + CTA -->
       <div class="bio-col reveal">
 
         <div class="bio-card">
@@ -81,80 +145,6 @@ import PageShapes from '../components/PageShapes.astro';
           </a>
         </div>
       </div>
-
-      <!-- Right column: sidebar cards -->
-      <aside class="sidebar-col">
-
-        <!-- Currently -->
-        <div class="side-card reveal delay-100">
-          <p class="section-label mb-4">Currently</p>
-          <ul class="side-list">
-            <li class="side-item">
-              <span class="side-arrow">▸</span>
-              <span>Automation Engineer at <strong>Level One Robotics</strong></span>
-            </li>
-            <li class="side-item">
-              <span class="side-arrow">▸</span>
-              <span>Based in Windsor, Ontario 🇨🇦</span>
-            </li>
-            <li class="side-item">
-              <span class="side-arrow">▸</span>
-              <span>Open to interesting opportunities</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Education -->
-        <div class="side-card reveal delay-200">
-          <p class="section-label mb-4">Education</p>
-          <p class="edu-degree">B.Sc. Computer Science</p>
-          <p class="edu-school">University of Windsor</p>
-          <p class="edu-year">Graduated 2023</p>
-        </div>
-
-        <!-- Interests -->
-        <div class="side-card reveal delay-300">
-          <p class="section-label mb-4">Interests</p>
-          <div class="tag-wrap">
-            {[
-              "Full-Stack Dev",
-              "Automation",
-              "Clean UI",
-              "TypeScript",
-              "C# / .NET",
-              "Open Source",
-              "React",
-              "Coffee ☕",
-            ].map(tag => (
-              <span class="interest-tag">{tag}</span>
-            ))}
-          </div>
-        </div>
-
-        <!-- Values -->
-        <div class="side-card reveal delay-400">
-          <p class="section-label mb-4">What I value</p>
-          <ul class="side-list">
-            <li class="side-item">
-              <span class="side-arrow pink-arrow">▸</span>
-              <span>Readable, maintainable code</span>
-            </li>
-            <li class="side-item">
-              <span class="side-arrow pink-arrow">▸</span>
-              <span>Thoughtful UI & UX decisions</span>
-            </li>
-            <li class="side-item">
-              <span class="side-arrow pink-arrow">▸</span>
-              <span>Continuous learning</span>
-            </li>
-            <li class="side-item">
-              <span class="side-arrow pink-arrow">▸</span>
-              <span>Shipping things that actually work</span>
-            </li>
-          </ul>
-        </div>
-
-      </aside>
     </main>
 
     <!-- ── Footer ─────────────────────────────── -->
@@ -359,6 +349,36 @@ import PageShapes from '../components/PageShapes.astro';
     transform: translateY(-2px);
   }
 
+  /* Profile picture */
+  .profile-card { padding: 0.75rem; max-width: 18rem; }
+  @media (min-width: 1024px) {
+    .profile-card { max-width: none; }
+  }
+  .profile-photo {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(60, 143, 168, 0.1);
+    border: 0.5px solid rgba(60, 143, 168, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .profile-initials {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #3C8FA8;
+  }
+  .profile-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   .side-list {
     list-style: none;
     padding: 0;
@@ -375,7 +395,6 @@ import PageShapes from '../components/PageShapes.astro';
     line-height: 1.5;
   }
   .side-arrow { color: #3C8FA8; flex-shrink: 0; font-size: 0.7rem; margin-top: 3px; }
-  .pink-arrow { color: #C17B9E; }
 
   /* Education */
   .edu-degree {
