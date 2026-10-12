@@ -34,11 +34,12 @@ const { name, icon: Icon } = Astro.props;
     overflow: hidden;
   }
 
-  /* Same hover as the experience and project cards: soft lift + shadow */
+  /* Soft lift like the experience and project cards, with a pink border
+     and shadow to pair with the blue icon and dot */
   .tech-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 28px rgba(60, 143, 168, 0.1);
-    border-color: #c8d8de;
+    box-shadow: 0 6px 28px rgba(193, 123, 158, 0.18);
+    border-color: #C17B9E;
   }
 
   /* Corner dot — mirrors the icon: muted blue base, brand blue on hover */
