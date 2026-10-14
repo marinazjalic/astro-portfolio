@@ -129,9 +129,11 @@ import HeroFloating from './HeroFloating.astro';
     font-size: clamp(1.5rem, 1.1rem + 1.2vw, 1.875rem);
     line-height: 1.3;
     color: #4b5563;
-    /* Reserves two lines at every width, so the layout never shifts as
-       characters are typed or as the phrase wraps */
-    min-height: 2.6em;
+    /* Reserves exactly as many lines as the longest phrase needs at the
+       current width (measured by the script below, --typed-lines), so the
+       layout never shifts while typing and there is no empty line left
+       between the phrase and </dev>. Falls back to two lines without JS. */
+    min-height: calc(var(--typed-lines, 2) * 1.3em);
     display: flex;
     align-items: flex-start;
     /* Indent the phrase like code nested between <dev> and </dev>; scales
@@ -267,4 +269,47 @@ import HeroFloating from './HeroFloating.astro';
   }
 
   setTimeout(runCycle, 600);
+
+  // Below 1024px the phrase can wrap. Measure how many lines the longest
+  // phrase needs at the current width and reserve just that much height.
+  const typedLine = document.querySelector(".typed-line");
+
+  function reserveLines() {
+    const wrap = typedLine.parentElement;
+    const probe = typedLine.cloneNode(false); // keeps the class and scoped styles
+    probe.removeAttribute("id");
+    probe.style.cssText =
+      "position:absolute;visibility:hidden;pointer-events:none;left:0;top:0;min-height:0;width:" +
+      wrap.clientWidth +
+      "px";
+    const text = document.createElement("span");
+    probe.appendChild(text);
+    wrap.appendChild(probe);
+
+    const lineHeight = parseFloat(getComputedStyle(probe).lineHeight);
+    if (!isFinite(lineHeight)) {
+      // 1024px and up uses the original single-line height; nothing to measure
+      probe.remove();
+      return;
+    }
+    let most = 1;
+    phrases.forEach((phrase) => {
+      text.textContent = phrase;
+      most = Math.max(
+        most,
+        Math.round(probe.getBoundingClientRect().height / lineHeight),
+      );
+    });
+
+    probe.remove();
+    typedLine.style.setProperty("--typed-lines", most);
+  }
+
+  let resizeFrame;
+  window.addEventListener("resize", () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(reserveLines);
+  });
+  reserveLines();
+  if (document.fonts) document.fonts.ready.then(reserveLines);
 </script>
