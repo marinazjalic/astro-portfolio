@@ -134,6 +134,9 @@ import HeroFloating from './HeroFloating.astro';
     min-height: 2.6em;
     display: flex;
     align-items: flex-start;
+    /* Indent the phrase like code nested between <dev> and </dev>; scales
+       from 1rem on phones up to 2rem on wide screens */
+    padding-left: clamp(1rem, 2.5vw, 2rem);
   }
 
   /* From 1024px up: the original tagline styling, unchanged */
