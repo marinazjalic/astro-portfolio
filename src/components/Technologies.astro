@@ -23,12 +23,12 @@ import { technologies } from '../data/technologies';
     text-align: center;
   }
 
-  /* Matches the .exp-heading treatment on the Experience section
-     (Oswald, text-3xl, bold, gray-500) */
+  /* Matches the other page headings (Georgia, bold, gray-500), sized at
+     three quarters of theirs since this is a section heading */
   .tech-heading {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.5rem, 3.75vw, 2.25rem);
+    line-height: 1.1;
     font-weight: 700;
     color: #6b7280;
     margin: 0 0 10px;

@@ -55,8 +55,12 @@ const lastModified = new Date().toLocaleDateString("en-US", {
   .page-root {
     position: relative;
   }
+  /* Matches the other page headings (Georgia, bold, gray-500), sized at
+     three quarters of theirs since this is a section heading */
   .exp-heading {
-    font-family: 'Oswald', sans-serif;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.5rem, 3.75vw, 2.25rem);
+    line-height: 1.1;
   }
 </style>
 
