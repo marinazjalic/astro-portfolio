@@ -41,6 +41,7 @@ export const experiences = [
       "Resolved software and hardware tickets through effective troubleshooting, supporting end-users across manufacturing operations in a fast-paced environment.",
     ],
     skills: ["Troubleshooting", "Technical Support", "ServiceNow"],
+    coop: true,
   },
   {
     start: "2021-05",
@@ -52,5 +53,6 @@ export const experiences = [
       "Configured, deployed, and maintained end-user devices while evaluating tools to improve manufacturing workflows.",
     ],
     skills: ["IT Support", "Troubleshooting"],
+    coop: true,
   },
 ];

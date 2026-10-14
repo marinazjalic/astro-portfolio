@@ -8,9 +8,10 @@ interface Props {
   company: string;
   description: string[];
   skills: string[];
+  coop?: boolean;
 }
 
-const { start, end, role, company, description, skills } = Astro.props;
+const { start, end, role, company, description, skills, coop } = Astro.props;
 
 function formatDate(dateStr: string | "Present"): string {
   if (dateStr === "Present") return "Present";
@@ -27,7 +28,10 @@ const isPresent = end === "Present";
   <!-- Top bar: role + date -->
   <div class="exp-header">
     <div class="exp-header-left">
-      <span class="exp-role">{role}</span>
+      <div class="exp-role-row">
+        <span class="exp-role">{role}</span>
+        {coop && <span class="coop-tag">Co-op</span>}
+      </div>
       <span class="exp-company">{company}</span>
     </div>
     <div class="exp-date">
@@ -116,6 +120,25 @@ const isPresent = end === "Present";
     display: flex;
     flex-direction: column;
     gap: 2px;
+  }
+
+  .exp-role-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: 8px;
+  }
+
+  /* Plain text next to the job title, in the same muted gray and monospace
+     as the dates, with a small dot separator */
+  .coop-tag {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #9ca3af;
+  }
+  .coop-tag::before {
+    content: '·';
+    margin-right: 8px;
   }
 
   .exp-role {
