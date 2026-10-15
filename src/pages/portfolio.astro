@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PageShapes from '../components/PageShapes.astro';
 import { projects } from '../data/projects';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Portfolio — Marina Zjalic">
@@ -53,10 +54,11 @@ import { projects } from '../data/projects';
     </main>
 
     <!-- ── Footer ── -->
-    <footer class="port-footer">
+    <!-- <footer class="port-footer">
       <p>© {new Date().getFullYear()} Marina Zjalic</p>
       <p class="footer-right">Built with Astro + Tailwind CSS</p>
-    </footer>
+    </footer> -->
+    <Footer/>
 
   </div>
 </Layout>

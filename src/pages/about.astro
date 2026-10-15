@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import PageShapes from '../components/PageShapes.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="About — Marina Zjalic">
@@ -143,10 +144,11 @@ import PageShapes from '../components/PageShapes.astro';
     </main>
 
     <!-- ── Footer ─────────────────────────────── -->
-    <footer class="about-footer">
+    <!-- <footer class="about-footer">
       <p>© {new Date().getFullYear()} Marina Zjalic</p>
       <p class="footer-right">Built with Astro + Tailwind CSS</p>
-    </footer>
+    </footer> -->
+    <Footer/>
 
   </div>
 </Layout>
