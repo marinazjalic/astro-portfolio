@@ -1,0 +1,212 @@
+---
+// 3D lotus for the home hero (public/models/lotus.glb).
+// three.js is only loaded once this element is near the viewport.
+---
+
+<div class="hero-lotus" id="hero-lotus" aria-hidden="true">
+  <canvas id="lotus-canvas"></canvas>
+</div>
+
+<style>
+  .hero-lotus {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    /* Below 1024px the lotus sits under the buttons, centred */
+    height: clamp(260px, 75vw, 420px);
+    margin-top: 1.5rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+  .hero-lotus.is-ready {
+    opacity: 1;
+  }
+
+  .hero-lotus canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* From 1024px up it fills the empty space to the right of the name.
+     The text block is about 44rem wide including the left padding, so the
+     lotus takes whatever width remains and grows with the screen. */
+  @media (min-width: 1024px) {
+    .hero-lotus {
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      bottom: 0;
+      width: min(calc(100% - 44rem), 52rem);
+      height: auto;
+      margin-top: 0;
+    }
+  }
+</style>
+
+<script>
+  const wrap = document.getElementById("hero-lotus") as HTMLDivElement | null;
+  const canvas = document.getElementById(
+    "lotus-canvas",
+  ) as HTMLCanvasElement | null;
+
+  async function init() {
+    if (!wrap || !canvas) return;
+
+    const [THREE, { GLTFLoader }] = await Promise.all([
+      import("three"),
+      import("three/addons/loaders/GLTFLoader.js"),
+    ]);
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let renderer: InstanceType<typeof THREE.WebGLRenderer>;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: "low-power",
+      });
+    } catch {
+      return; // no WebGL: the hero simply shows without the lotus
+    }
+    renderer.setClearColor(0x000000, 0);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 50);
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0xcfd8e3, 1.6));
+    const key = new THREE.DirectionalLight(0xffffff, 1.8);
+    key.position.set(2.5, 4, 3);
+    scene.add(key);
+
+    const gltf = await new GLTFLoader().loadAsync("/models/lotus.glb");
+    const model = gltf.scene;
+
+    // Recolour the model to match the site. Keys are the material names inside
+    // the GLB; edit the hex values to taste.
+    const COLORS: Record<string, string> = {
+      "Material.004": "#3C8FA8", // large outer petals
+      "Material.005": "#C8DDE5", // thin rim along the petal edges
+      "Material.003": "#C17B9E", // inner petals
+      "Material.002": "#E3BBD0", // small upper petals
+      "Material.001": "#537D90", // stamens
+    };
+    model.traverse((child) => {
+      const mesh = child as any;
+      if (!mesh.isMesh) return;
+      const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      for (const mat of mats) {
+        const hex = COLORS[mat.name];
+        if (hex) mat.color.set(hex);
+      }
+    });
+
+    // Centre the model and scale it to a standard size, so a different
+    // model can be dropped in without re-measuring it by hand.
+    model.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.sub(center);
+    model.updateMatrixWorld(true);
+
+    // Widest reach from the spin axis, measured from the actual vertices
+    let reach = 0;
+    const v = new THREE.Vector3();
+    model.traverse((child) => {
+      const mesh = child as any;
+      if (!mesh.isMesh) return;
+      const pos = mesh.geometry.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        v.fromBufferAttribute(pos, i).applyMatrix4(mesh.matrixWorld);
+        reach = Math.max(reach, Math.hypot(v.x, v.z));
+      }
+    });
+    const scale = 1 / reach; // horizontal radius becomes 1
+    model.scale.setScalar(scale);
+    model.position.multiplyScalar(scale);
+
+    const radius = 1;
+    const halfHeight = ((box.max.y - box.min.y) * scale) / 2;
+
+    // the pivot spins on Y; the tilt looks slightly down into the flower
+    const pivot = new THREE.Group();
+    pivot.rotation.x = 0.35;
+    pivot.add(model);
+    scene.add(pivot);
+
+    const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+
+    function resize() {
+      const w = wrap!.clientWidth;
+      const h = wrap!.clientHeight;
+      if (!w || !h) return;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      const dist =
+        Math.max(
+          (halfHeight + 0.35) / tanHalfFov,
+          radius / (tanHalfFov * camera.aspect),
+        ) + radius;
+      camera.position.set(0, 0, dist);
+      camera.lookAt(0, 0, 0);
+      camera.updateProjectionMatrix();
+      renderer.render(scene, camera);
+    }
+    new ResizeObserver(resize).observe(wrap);
+    resize();
+
+    pivot.rotation.y = 0.5; // still angle used for reduced motion
+    renderer.render(scene, camera);
+    wrap.classList.add("is-ready");
+    if (reduceMotion) return;
+
+    // Rotate only while the lotus is on screen and the tab is visible
+    let visible = true;
+    let raf = 0;
+    let last = performance.now();
+    const SPEED = 0.35; // radians per second (~18s per turn)
+
+    function frame(now: number) {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      pivot.rotation.y += SPEED * dt;
+      renderer.render(scene, camera);
+      raf = requestAnimationFrame(frame);
+    }
+    function start() {
+      if (raf || !visible || document.hidden) return;
+      last = performance.now();
+      raf = requestAnimationFrame(frame);
+    }
+
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+    }).observe(wrap);
+    document.addEventListener("visibilitychange", start);
+    start();
+  }
+
+  // Wait until the hero is near the viewport before pulling in three.js
+  if (wrap) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          init().catch((err) => console.warn("Lotus failed to load", err));
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(wrap);
+  }
+</script>
