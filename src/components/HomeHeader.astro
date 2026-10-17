@@ -21,7 +21,7 @@ import HeroLotus from './HeroLotus.astro';
       <span
         class="block bg-gradient-to-r from-[#3C8FA8] via-[#C17B9E] to-[#3C8FA8] bg-clip-text text-transparent hero-last"
       >
-        Zjalic.
+        Zjalic
       </span>
     </h1>
 
@@ -80,29 +80,29 @@ import HeroLotus from './HeroLotus.astro';
 
   .hero-name {
     font-family: Georgia, "Times New Roman", serif;
+    /* One size drives both names. "Zjalic" is set at 4/3 of "Marina" (the
+       12rem : 9rem pair used on desktop), which keeps the two lines the same
+       width at every screen size. Change this value to resize the whole name.
+       Below 1024px it scales with the screen; from 1024px up it is fixed. */
+    --first-size: clamp(3.75rem, min(21vw, 5rem + 6.25vw), 9rem);
+  }
+  @media (min-width: 1024px) {
+    .hero-name {
+      --first-size: 9rem;
+    }
   }
 
-  /* Below 1024px: fluid name sizes that grow smoothly and reach the original
-     desktop sizes at 1024px. From 1024px up they are the original fixed sizes. */
   .hero-first {
-    font-size: clamp(3.75rem, min(21vw, 5rem + 6.25vw), 9rem);
+    font-size: var(--first-size);
   }
   .hero-last {
-    font-size: clamp(5rem, min(28vw, 7rem + 6.25vw), 11rem);
+    font-size: calc(var(--first-size) * 4 / 3);
     /* The gradient text is only painted inside the element's own box, and the
        tight line-height made that box too short for the descender on the "j".
        Extra bottom padding (scaled to the font size) gives it room; the negative
        margin cancels it out so the spacing stays exactly as it was (1rem). */
     padding-bottom: 0.3em;
     margin-bottom: calc(1rem - 0.3em);
-  }
-  @media (min-width: 1024px) {
-    .hero-first {
-      font-size: 9rem;
-    }
-    .hero-last {
-      font-size: 11rem;
-    }
   }
 
   .typing-wrap {
@@ -173,22 +173,25 @@ import HeroLotus from './HeroLotus.astro';
       opacity: 0;
     }
   }
+  /* Visitors who prefer reduced motion get a steady cursor instead of a blink */
+  @media (prefers-reduced-motion: reduce) {
+    .cursor {
+      animation: none;
+    }
+  }
 </style>
 
 <script is:inline>
-  const phrases = [
-    "Building delightful digital experiences.",
-    "Turning ideas into clean, working code.",
-    "Full-stack developer. Problem solver.",
-  ];
+  // Types <dev> → phrase → </dev> once, then stays put.
+  const PHRASE = "Full-stack developer. Problem solver.";
 
   const OPEN = "<dev>";
   const CLOSE = "</dev>";
+  const START_DELAY = 600; // ms before typing begins
   const PAUSE_AFTER_OPEN = 300; // ms pause after <dev> finishes
-  const PAUSE_AFTER_PHRASE = 1800; // ms pause after phrase finishes
-  const PAUSE_AFTER_CLOSE = 1400; // ms pause before deleting
+  const PAUSE_AFTER_PHRASE = 400; // ms pause after the phrase finishes
   const SPEED_TYPE = 65;
-  const SPEED_DELETE = 40;
+  const KEEP_CURSOR = true; // true = leave a blinking cursor after </dev>
 
   const elOpen = document.getElementById("open-tag");
   const elPhrase = document.getElementById("typed-text");
@@ -196,8 +199,6 @@ import HeroLotus from './HeroLotus.astro';
   const curOpen = document.getElementById("cursor-open");
   const curPhrase = document.getElementById("cursor-phrase");
   const curClose = document.getElementById("cursor-close");
-
-  let phraseIndex = 0;
 
   // Move the blinking cursor indicator to the active element
   function setCursor(active) {
@@ -221,57 +222,37 @@ import HeroLotus from './HeroLotus.astro';
     step();
   }
 
-  // Generic delete-then-callback helper
-  function deleteString(target, speed, cb) {
-    function step() {
-      if (target.textContent.length > 0) {
-        target.textContent = target.textContent.slice(0, -1);
-        setTimeout(step, speed);
-      } else {
-        cb();
-      }
-    }
-    step();
+  function finish() {
+    setCursor(KEEP_CURSOR ? "close" : "none");
   }
 
-  function runCycle() {
-    const phrase = phrases[phraseIndex];
-
+  function runOnce() {
     // 1. Type <dev>
     setCursor("open");
     typeString(elOpen, OPEN, SPEED_TYPE, () => {
-      // 2. Pause, then type phrase
+      // 2. Pause, then type the phrase
       setTimeout(() => {
         setCursor("phrase");
-        typeString(elPhrase, phrase, SPEED_TYPE, () => {
-          // 3. Pause, then type </dev>
+        typeString(elPhrase, PHRASE, SPEED_TYPE, () => {
+          // 3. Pause, then type </dev> and stop
           setTimeout(() => {
             setCursor("close");
-            typeString(elClose, CLOSE, SPEED_TYPE, () => {
-              // 4. Pause, then delete </dev>
-              setTimeout(() => {
-                deleteString(elClose, SPEED_DELETE, () => {
-                  // 5. Delete phrase
-                  setCursor("phrase");
-                  deleteString(elPhrase, SPEED_DELETE, () => {
-                    // 6. Delete <dev>
-                    setCursor("open");
-                    deleteString(elOpen, SPEED_DELETE, () => {
-                      // 7. Next phrase
-                      phraseIndex = (phraseIndex + 1) % phrases.length;
-                      setTimeout(runCycle, 200);
-                    });
-                  });
-                });
-              }, PAUSE_AFTER_CLOSE);
-            });
+            typeString(elClose, CLOSE, SPEED_TYPE, finish);
           }, PAUSE_AFTER_PHRASE);
         });
       }, PAUSE_AFTER_OPEN);
     });
   }
 
-  setTimeout(runCycle, 600);
+  // Visitors who prefer reduced motion get the finished text straight away
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    elOpen.textContent = OPEN;
+    elPhrase.textContent = PHRASE;
+    elClose.textContent = CLOSE;
+    finish();
+  } else {
+    setTimeout(runOnce, START_DELAY);
+  }
 
   // Below 1024px the phrase can wrap. Measure how many lines the longest
   // phrase needs at the current width and reserve just that much height.
@@ -296,7 +277,7 @@ import HeroLotus from './HeroLotus.astro';
       return;
     }
     let most = 1;
-    phrases.forEach((phrase) => {
+    [PHRASE].forEach((phrase) => {
       text.textContent = phrase;
       most = Math.max(
         most,
