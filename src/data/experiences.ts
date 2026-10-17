@@ -37,7 +37,7 @@ export const experiences = [
     role: "IT Technician",
     company: "Windsor Mold Group",
     description: [
-      "Created documentation for recurring software issues, reducing related support volume by 95%.",
+      "Created documentation for recurring software issues, reducing related support volume by 90%+.",
       "Resolved software and hardware tickets through effective troubleshooting, supporting end-users across manufacturing operations in a fast-paced environment.",
     ],
     skills: ["Troubleshooting", "Technical Support", "ServiceNow"],

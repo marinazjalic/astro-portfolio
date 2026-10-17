@@ -10,18 +10,17 @@ export const projects = [
   {
     title: "AutoDetect.ai",
     description:
-      "A mobile app that uses your phone's camera and a deep learning model to determine whether a car is damaged — built as a personal project to explore computer vision.",
+      "A personal project I made to learn computer vision, using a mobile app, your phone's camera, and a deep learning model to detect car damage.",
     points: [
-      "Built a cross-platform mobile app using React Native, Expo, and TypeScript that captures photos with the device camera and classifies vehicles as damaged or undamanged.",
+      "Built a mobile app using React Native, Expo, and TypeScript that captures photos with the device camera and classifies vehicles as damaged or undamanged.",
       "Fine-tuned a pre-trained MobileNet CNN for binary damage classification, achieving ~94% accuracy on unseen data.",
-      "Created a Flask API that preprocessed uploaded images, and returned each prediction with a confidence score.",
+      "Created a Flask API that preprocesses uploaded images, and returns each prediction with a confidence score.",
     ],
     tags: [
       "React Native",
       "TypeScript",
       "Python",
-      "Flask",
-      "TensorFlow",
+      "Flask API",
       "Computer Vision",
     ],
     image: img("autodetect.png"),
@@ -44,7 +43,7 @@ export const projects = [
       "TypeScript",
       "MongoDB",
       "Tailwind CSS",
-      "REST APIs",
+      "REST API",
     ],
     image: img("readify.png"),
     imageAlt: "Readify home feed screenshot",
@@ -57,8 +56,8 @@ export const projects = [
       "A mobile app for managing study room reservations across campus, suggesting next-best options using ML when availability is limited.",
     points: [
       "Built a full-stack mobile app (React Native, Node.js, Express, MongoDB) that lets University of Windsor students find and reserve study rooms across campus.",
-      "Implemented backend REST APIs for handling user accounts, searching rooms based on input parameters (location, capacity, amenities, etc), and creating and cancelling bookings.",
-      "Featured an interactive campus map and booking management screens so students can select buildings visually and view or cancel upcoming reservations.",
+      "Implemented REST APIs for handling user accounts, searching rooms based on input parameters (location, capacity, amenities, etc.), and creating and cancelling bookings.",
+      "Featured an interactive campus map and booking management screens so students can select buildings visually and manage upcoming reservations.",
       "Trained a TensorFlow classification model on room search parameters to recommend the next-best alternative when no room is available.",
     ],
     tags: [
