@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   title: string;
   description: string;
@@ -6,6 +8,8 @@ interface Props {
   tags: string[];
   githubUrl?: string;
   liveUrl?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
   imagePlaceholder?: string;
 }
 
@@ -16,17 +20,31 @@ const {
   tags,
   githubUrl,
   liveUrl,
+  image,
+  imageAlt,
   imagePlaceholder = "#c8dde5",
 } = Astro.props;
 ---
 
 <div class="proj-card reveal">
 
-  <!-- Colour swatch panel -->
-  <div class="proj-swatch" style={{ backgroundColor: imagePlaceholder }}>
-    <span class="proj-swatch-label">{title}</span>
-    <!-- Corner dot -->
-    <div class="swatch-dot"></div>
+  <!-- Image panel (falls back to the colour block if no image is provided) -->
+  <div class="proj-media" style={{ backgroundColor: imagePlaceholder }}>
+    {image ? (
+      <Image
+        src={image}
+        alt={imageAlt ?? `${title} screenshot`}
+        widths={[400, 640, 960, 1280, 1600]}
+        sizes="(min-width: 1024px) min(440px, 36vw), 100vw"
+        loading="lazy"
+        class="proj-img"
+      />
+    ) : (
+      <>
+        <span class="proj-swatch-label">{title}</span>
+        <div class="swatch-dot"></div>
+      </>
+    )}
   </div>
 
   <!-- Content panel -->
@@ -96,7 +114,9 @@ const {
     background: rgba(255, 255, 255, 0.55);
     transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
   }
-  @media (min-width: 640px) {
+  /* Stacked (image on top) until 1024px so the image gets the full card
+     width instead of a narrow side column; side-by-side only on desktop. */
+  @media (min-width: 1024px) {
     .proj-card { flex-direction: row; }
   }
   .proj-card:hover {
@@ -105,23 +125,50 @@ const {
     border-color: #b8d0d8;
   }
 
-  /* Colour swatch */
-  .proj-swatch {
+  /* Media panel
+     Stacked (under 1024px): the panel is full card width at 16:10 and the
+     image uses cover, so it fills the entire panel edge to edge (no empty
+     background space around it). Wide screenshots are scaled up to the width;
+     anything that doesn't fit the 16:10 shape is trimmed evenly from the
+     centre.
+     Side-by-side (1024px+): a column that scales with the card (36%, between
+     300px and 440px) and stretches to the card's height. The image uses
+     contain here, so the whole screenshot shows and the matching background
+     colour (inline, from imagePlaceholder) fills the rest. */
+  .proj-media {
     position: relative;
     width: 100%;
-    height: 140px;
+    aspect-ratio: 16 / 10;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-  }
-  @media (min-width: 640px) {
-    .proj-swatch { width: 220px; height: auto; }
+    overflow: hidden;
   }
   @media (min-width: 1024px) {
-    .proj-swatch { width: 260px; }
+    .proj-media {
+      width: clamp(300px, 36%, 440px);
+      aspect-ratio: auto;
+      min-height: 180px;
+    }
   }
 
+  /* Absolute so the image never stretches the card's height on desktop. */
+  .proj-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* stacked: fill the whole panel */
+    object-position: center;
+    transition: transform 0.5s ease;
+  }
+  @media (min-width: 1024px) {
+    .proj-img { object-fit: contain; }   /* side-by-side: show whole image */
+  }
+  .proj-card:hover .proj-img { transform: scale(1.04); }
+
+  /* Fallback colour-block styles */
   .proj-swatch-label {
     font-family: monospace;
     font-size: 11px;

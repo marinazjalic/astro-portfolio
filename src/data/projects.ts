@@ -1,3 +1,11 @@
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/projects/*.{png,jpg,jpeg,webp,avif}",
+  { eager: true },
+);
+
+const img = (filename: string): ImageMetadata | undefined =>
+  images[`../assets/projects/${filename}`]?.default;
+
 export const projects = [
   {
     title: "AutoDetect.ai",
@@ -16,6 +24,8 @@ export const projects = [
       "TensorFlow",
       "Computer Vision",
     ],
+    image: img("autodetect.png"),
+    imageAlt: "AutoDetect.ai app screenshot",
     imagePlaceholder: "#c8dde5",
     githubUrl: "https://github.com/marinazjalic/autoDetect.ai",
   },
@@ -36,6 +46,8 @@ export const projects = [
       "Tailwind CSS",
       "REST APIs",
     ],
+    image: img("readify.png"),
+    imageAlt: "Readify home feed screenshot",
     imagePlaceholder: "#d5c8e5",
     githubUrl: "https://github.com/marinazjalic/readify",
   },
@@ -59,6 +71,8 @@ export const projects = [
       "Machine Learning",
       "TensorFlow",
     ],
+    image: img("booksmart_img.png"),
+    imageAlt: "BookSmart room booking screenshot",
     imagePlaceholder: "#c5d8c8",
     githubUrl: "https://github.com/marinazjalic",
     // liveUrl: "/",
