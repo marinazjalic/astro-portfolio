@@ -2,7 +2,7 @@ export const experiences = [
   {
     start: "2025-07",
     end: "Present",
-    role: "Backend Software Developer",
+    role: "Software Developer",
     company: "Level One Robotics and Controls, Inc.",
     description: [
       "Developed a multithreaded TCP server to manage multiple client connections and coordinate data exchange with external hardware, processing 1200+ requests per minute.",
@@ -14,7 +14,7 @@ export const experiences = [
   {
     start: "2022-09",
     end: "2023-07",
-    role: "Full Stack Developer",
+    role: "Full-Stack Developer",
     company: "Windsor Mold Group",
     description: [
       "Developed and deployed a full-stack security management application using C#, ASP.NET Core MVC, and DevExpress to deliver a responsive dashboard for managing employee access controls.",
@@ -34,7 +34,7 @@ export const experiences = [
   {
     start: "2022-01",
     end: "2022-04",
-    role: "Service Desk Technician",
+    role: "IT Technician",
     company: "Windsor Mold Group",
     description: [
       "Created documentation for recurring software issues, reducing related support volume by 95%.",
