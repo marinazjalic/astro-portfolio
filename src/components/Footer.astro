@@ -88,6 +88,18 @@ const year = new Date().getFullYear();
 
   <div class="footer-bottom">
     <p>© {year} Marina Zjalic</p>
+    <p class="footer-credit">
+      3D model “<a
+        href="https://skfb.ly/oLvXq"
+        target="_blank"
+        rel="noopener noreferrer">Flower Lotus</a
+      >” by Ar3Designer, licensed under
+      <a
+        href="https://creativecommons.org/licenses/by/4.0/"
+        target="_blank"
+        rel="noopener noreferrer">CC BY 4.0</a
+      >. Colors changed from the original.
+    </p>
     <!-- <p class="footer-built">Built with Astro + Tailwind CSS</p> -->
   </div>
 </footer>
@@ -189,5 +201,28 @@ const year = new Date().getFullYear();
   }
   .footer-built {
     color: #3c8fa8;
+  }
+
+  .footer-credit {
+    margin: 0;
+    max-width: 46rem;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .footer-credit a {
+    color: #6b7280;
+    text-decoration: underline;
+    text-decoration-color: #d6d2c4;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  }
+  .footer-credit a:hover {
+    color: #3c8fa8;
+    text-decoration-color: #3c8fa8;
+  }
+  @media (min-width: 768px) {
+    .footer-credit {
+      text-align: right;
+    }
   }
 </style>
