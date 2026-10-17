@@ -13,8 +13,12 @@
     z-index: 1;
     width: 100%;
     /* Below 1024px the lotus sits under the buttons, centred */
-    height: clamp(260px, 75vw, 420px);
+    --lotus-h: clamp(260px, 75vw, 420px);
+    height: var(--lotus-h);
     margin-top: 1.5rem;
+    /* The canvas has empty room under the flower; pull the next section up
+       into it so there is less blank space before "Technologies" */
+    margin-bottom: calc(var(--lotus-h) * -0.12);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.9s ease;
@@ -41,6 +45,7 @@
       width: min(calc(100% - 44rem), 52rem);
       height: auto;
       margin-top: 0;
+      margin-bottom: 0;
     }
   }
 </style>
