@@ -73,7 +73,7 @@ export const projects = [
     image: img("booksmart_img.png"),
     imageAlt: "BookSmart room booking screenshot",
     imagePlaceholder: "#c5d8c8",
-    githubUrl: "https://github.com/marinazjalic",
+    githubUrl: "https://github.com/marinazjalic/smart-campus-app",
     // liveUrl: "/",
   },
 ];
