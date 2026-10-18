@@ -177,13 +177,35 @@
     let raf = 0;
     let last = performance.now();
     const SPEED = 0.35; // radians per second (~18s per turn)
+    const SCROLL_SPEED = 1.5; // radians per second while scrolling (~4s per turn)
+    const SPEED_UP = 6; // how quickly it speeds up when scrolling starts
+    const SLOW_DOWN = 2.5; // how gently it settles back once scrolling stops
+    const SCROLL_IDLE_MS = 120; // no scroll events for this long = "not scrolling"
+
+    let current = SPEED;
+    let lastScroll = -Infinity;
+    window.addEventListener(
+      "scroll",
+      () => {
+        lastScroll = performance.now();
+      },
+      { passive: true },
+    );
 
     function frame(now: number) {
       raf = 0;
       if (!visible || document.hidden) return;
       const dt = Math.min((now - last) / 1000, 0.1);
       last = now;
-      pivot.rotation.y += SPEED * dt;
+
+      // Ease toward the boosted speed while scrolling, and back to the normal
+      // speed afterwards, so the change never looks like a sudden jump
+      const scrolling = now - lastScroll < SCROLL_IDLE_MS;
+      const target = scrolling ? SCROLL_SPEED : SPEED;
+      const rate = scrolling ? SPEED_UP : SLOW_DOWN;
+      current += (target - current) * (1 - Math.exp(-rate * dt));
+
+      pivot.rotation.y += current * dt;
       renderer.render(scene, camera);
       raf = requestAnimationFrame(frame);
     }
