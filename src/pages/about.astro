@@ -7,7 +7,6 @@ import Footer from '../components/Footer.astro';
 
 <Layout title="About — Marina Zjalic">
   <div class="page-root grid-bg min-h-screen">
-
     <PageShapes />
     <Navbar />
 
@@ -18,15 +17,13 @@ import Footer from '../components/Footer.astro';
         <p class="section-label">Hello</p>
       </div>
       <h1 class="about-heading">About Me</h1>
-      <p class="about-sub">Software developer · Ontario, Canada </p>
+      <p class="about-sub">Software Developer · Ontario, Canada</p>
     </header>
 
     <!-- ── Main content ───────────────────────── -->
     <main class="about-main">
-
       <!-- Left column: profile + sidebar cards -->
       <aside class="sidebar-col">
-
         <!-- Profile picture -->
         <div class="side-card profile-card reveal">
           <div class="profile-photo">
@@ -35,7 +32,7 @@ import Footer from '../components/Footer.astro';
               src="/profile.png"
               alt="Marina Zjalic"
               class="profile-img"
-              onerror="this.style.display='none'"
+              onerror="this.style.display = 'none'"
             />
           </div>
         </div>
@@ -46,7 +43,10 @@ import Footer from '../components/Footer.astro';
           <ul class="side-list">
             <li class="side-item">
               <span class="side-arrow">▸</span>
-              <span>Software Engineer at <strong>Level One Robotics, Inc</strong></span>
+              <span
+                >Software Developer at
+                <strong>Level One Robotics, Inc</strong></span
+              >
             </li>
             <li class="side-item">
               <span class="side-arrow">▸</span>
@@ -70,28 +70,29 @@ import Footer from '../components/Footer.astro';
 
       <!-- Right column: bio + CTA -->
       <div class="bio-col reveal">
-
         <div class="bio-card">
           <p class="bio-text">
-            I'm a software developer with 2+ years of professional experience building backend services,
-            full-stack applications, and systems integrations. I work mostly with C#, JavaScript, and Python,
-            using technologies like .NET, React, and Node.js
+            I'm a software developer with 2+ years of professional experience
+            building backend services, full-stack applications, and systems
+            integrations. I work mostly with C#, JavaScript, and Python, using
+            technologies like .NET, React, and Node.js
           </p>
 
           <p class="bio-text">
-            I really enjoy figuring out how things work, and I've had experience building tools
-            across a wide range of problems. I've built web and mobile apps, REST APIs, and machine
-            learning pipelines. My favourite projects to work on have been the ones where I could design
-            and build something from scratch, especially working on the backend and seeing how everything
-            comes together. My latest role has given me the opportunity to build on that interest, 
-            strengthen my backend skills, and continue growing as a developer.
-
+            I really enjoy figuring out how things work, and I've had experience
+            building tools across a wide range of problems. I've built web and
+            mobile apps, REST APIs, and machine learning pipelines. My favourite
+            projects to work on have been the ones where I could design and
+            build something from scratch, especially working on the backend and
+            seeing how everything comes together. My latest role has given me
+            the opportunity to build on that interest, strengthen my backend
+            skills, and continue growing as a developer.
           </p>
 
           <p class="bio-text">
-            In my free time, I like to read, cook, and spend time outdoors. I also like to work on fun side
-            projects, which you can find here.
-          </p>
+            In my free time, I like to read, cook, and spend time outdoors. I
+            also like to work on fun side projects, which you can find
+            <a href="/portfolio" class="bio-link">here</a>.
           </p>
         </div>
 
@@ -105,20 +106,19 @@ import Footer from '../components/Footer.astro';
           >
             Connect on LinkedIn →
           </a>
-          <a href="/portfolio" class="cta-btn-outline">
-            View my work →
-          </a>
+          <a href="/portfolio" class="cta-btn-outline"> View my work → </a>
         </div>
       </div>
     </main>
-    <Footer/>
-
+    <Footer />
   </div>
 </Layout>
 
 <style>
   /* ── Page root needs relative for PageShapes ── */
-  .page-root { position: relative; }
+  .page-root {
+    position: relative;
+  }
 
   /* ── Shared padding — matches index.astro ── */
   .about-hero,
@@ -129,13 +129,17 @@ import Footer from '../components/Footer.astro';
     padding-right: 1.5rem;
   }
   @media (min-width: 768px) {
-    .about-hero, .about-main, .about-footer {
+    .about-hero,
+    .about-main,
+    .about-footer {
       padding-left: 3rem;
       padding-right: 3rem;
     }
   }
   @media (min-width: 1024px) {
-    .about-hero, .about-main, .about-footer {
+    .about-hero,
+    .about-main,
+    .about-footer {
       padding-left: 5rem;
       padding-right: 5rem;
     }
@@ -147,7 +151,7 @@ import Footer from '../components/Footer.astro';
     padding-bottom: 2rem;
   }
   .about-heading {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     color: #6b7280;
@@ -199,11 +203,13 @@ import Footer from '../components/Footer.astro';
   }
   /* Teal left accent */
   .bio-card::before {
-    content: '';
+    content: "";
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 3px;
-    background: linear-gradient(to bottom, #3C8FA8, #C17B9E);
+    background: linear-gradient(to bottom, #3c8fa8, #c17b9e);
     border-radius: 10px 0 0 10px;
   }
 
@@ -213,8 +219,37 @@ import Footer from '../components/Footer.astro';
     line-height: 1.75;
     margin: 0;
   }
-  .teal  { color: #3C8FA8; font-weight: 500; }
-  .pink  { color: #C17B9E; font-weight: 500; }
+  /* In-text link: brand blue with an underline so it reads as clickable */
+  .bio-link {
+    color: #3c8fa8;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(60, 143, 168, 0.45);
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+  .bio-link:hover,
+  .bio-link:focus-visible {
+    color: #c17b9e;
+    text-decoration-color: #c17b9e;
+  }
+  .bio-link:focus-visible {
+    outline: 2px solid #3c8fa8;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  .teal {
+    color: #3c8fa8;
+    font-weight: 500;
+  }
+  .pink {
+    color: #c17b9e;
+    font-weight: 500;
+  }
 
   /* ── Stat row ── */
   .stat-row {
@@ -234,10 +269,10 @@ import Footer from '../components/Footer.astro';
     gap: 2px;
   }
   .stat-num {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: 1.75rem;
     font-weight: 700;
-    color: #3C8FA8;
+    color: #3c8fa8;
     line-height: 1;
   }
   .stat-label-sm {
@@ -263,7 +298,7 @@ import Footer from '../components/Footer.astro';
     display: inline-flex;
     align-items: center;
     padding: 10px 20px;
-    background: #3C8FA8;
+    background: #3c8fa8;
     color: white;
     font-family: monospace;
     font-size: 0.8rem;
@@ -271,20 +306,24 @@ import Footer from '../components/Footer.astro';
     text-decoration: none;
     transition: background 0.2s;
   }
-  .cta-btn-fill:hover { background: #2d7a91; }
+  .cta-btn-fill:hover {
+    background: #2d7a91;
+  }
   .cta-btn-outline {
     display: inline-flex;
     align-items: center;
     padding: 10px 20px;
-    border: 1px solid #3C8FA8;
-    color: #3C8FA8;
+    border: 1px solid #3c8fa8;
+    color: #3c8fa8;
     font-family: monospace;
     font-size: 0.8rem;
     border-radius: 2px;
     text-decoration: none;
     transition: background 0.2s;
   }
-  .cta-btn-outline:hover { background: rgba(60,143,168,0.08); }
+  .cta-btn-outline:hover {
+    background: rgba(60, 143, 168, 0.08);
+  }
 
   /* ── Sidebar ── */
   .sidebar-col {
@@ -294,7 +333,10 @@ import Footer from '../components/Footer.astro';
     width: 100%;
   }
   @media (min-width: 1024px) {
-    .sidebar-col { width: 300px; flex-shrink: 0; }
+    .sidebar-col {
+      width: 300px;
+      flex-shrink: 0;
+    }
   }
 
   .side-card {
@@ -302,7 +344,9 @@ import Footer from '../components/Footer.astro';
     border: 0.5px solid #d6d2c4;
     border-radius: 10px;
     padding: 1.25rem 1.5rem;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition:
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
   }
   .side-card:hover {
     box-shadow: 0 4px 20px rgba(60, 143, 168, 0.08);
@@ -310,7 +354,9 @@ import Footer from '../components/Footer.astro';
   }
 
   /* Profile picture */
-  .profile-card { padding: 0.75rem; }
+  .profile-card {
+    padding: 0.75rem;
+  }
   .profile-photo {
     position: relative;
     aspect-ratio: 1;
@@ -323,10 +369,10 @@ import Footer from '../components/Footer.astro';
     justify-content: center;
   }
   .profile-initials {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: 3rem;
     font-weight: 700;
-    color: #3C8FA8;
+    color: #3c8fa8;
   }
   .profile-img {
     position: absolute;
@@ -351,7 +397,12 @@ import Footer from '../components/Footer.astro';
     color: #6b7280;
     line-height: 1.5;
   }
-  .side-arrow { color: #3C8FA8; flex-shrink: 0; font-size: 0.7rem; margin-top: 3px; }
+  .side-arrow {
+    color: #3c8fa8;
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    margin-top: 3px;
+  }
 
   /* Education */
   .edu-degree {
@@ -363,7 +414,7 @@ import Footer from '../components/Footer.astro';
   .edu-school {
     font-family: monospace;
     font-size: 0.8rem;
-    color: #3C8FA8;
+    color: #3c8fa8;
     margin: 0 0 2px;
   }
   .edu-year {
@@ -404,9 +455,14 @@ import Footer from '../components/Footer.astro';
     color: #9ca3af;
   }
   @media (min-width: 768px) {
-    .about-footer { flex-direction: row; justify-content: space-between; }
+    .about-footer {
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
-  .footer-right { color: #3C8FA8; }
+  .footer-right {
+    color: #3c8fa8;
+  }
 </style>
 
 <script is:inline>
@@ -416,7 +472,7 @@ import Footer from '../components/Footer.astro';
         if (entry.isIntersecting) entry.target.classList.add("visible");
       });
     },
-    { threshold: 0.08 }
+    { threshold: 0.08 },
   );
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 </script>
