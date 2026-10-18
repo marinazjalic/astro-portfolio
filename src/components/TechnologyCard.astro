@@ -6,7 +6,13 @@ interface Props {
 const { name, icon: Icon } = Astro.props;
 ---
 
-<div class="tech-card group">
+<button
+  type="button"
+  class="tech-card group"
+  data-tech={name}
+  aria-haspopup="dialog"
+  aria-label={`${name} — see where I've used it`}
+>
   <!-- Corner accent dot -->
   <div class="corner-dot group-hover:corner-dot-hover"></div>
 
@@ -15,10 +21,16 @@ const { name, icon: Icon } = Astro.props;
   </div>
 
   <span class="tech-name">{name}</span>
-</div>
+</button>
 
 <style>
   .tech-card {
+    /* It's a <button> now, so reset the browser defaults */
+    appearance: none;
+    font: inherit;
+    width: 100%;
+    margin: 0;
+    text-align: center;
     position: relative;
     aspect-ratio: 1;
     border-radius: 10px;
@@ -29,7 +41,7 @@ const { name, icon: Icon } = Astro.props;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    cursor: default;
+    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     overflow: hidden;
     /* Lets the icon, dot and label scale with the card's width (cqw units) */
@@ -38,7 +50,8 @@ const { name, icon: Icon } = Astro.props;
 
   /* Soft lift like the experience and project cards, with a pink border
      and shadow to pair with the blue icon and dot */
-  .tech-card:hover {
+  .tech-card:hover,
+  .tech-card:focus-visible {
     transform: translateY(-2px);
     box-shadow: 0 6px 28px rgba(193, 123, 158, 0.18);
     border-color: #C17B9E;
@@ -55,7 +68,14 @@ const { name, icon: Icon } = Astro.props;
     background: #537d90;
     transition: background 0.3s ease, transform 0.3s ease;
   }
-  .tech-card:hover .corner-dot {
+  .tech-card:focus-visible {
+    outline: 2px solid #3C8FA8;
+    outline-offset: 2px;
+  }
+  .tech-card:active { transform: translateY(0); }
+
+  .tech-card:hover .corner-dot,
+  .tech-card:focus-visible .corner-dot {
     background: #3C8FA8;
     transform: scale(1.3);
   }
@@ -75,7 +95,8 @@ const { name, icon: Icon } = Astro.props;
     color: #537d90;
     transition: color 0.3s ease, transform 0.3s ease;
   }
-  .tech-card:hover .icon-wrap :global(svg) {
+  .tech-card:hover .icon-wrap :global(svg),
+  .tech-card:focus-visible .icon-wrap :global(svg) {
     color: #3C8FA8;
     transform: rotate(6deg);
   }
@@ -87,5 +108,6 @@ const { name, icon: Icon } = Astro.props;
     color: #9ca3af;
     transition: color 0.2s ease;
   }
-  .tech-card:hover .tech-name { color: #4b5563; }
+  .tech-card:hover .tech-name,
+  .tech-card:focus-visible .tech-name { color: #4b5563; }
 </style>

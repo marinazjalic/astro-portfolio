@@ -1,5 +1,6 @@
 ---
 import Tag from './Tag.astro';
+import { experienceId } from '../data/slug';
 
 interface Props {
   start: string;
@@ -21,9 +22,10 @@ function formatDate(dateStr: string | "Present"): string {
 }
 
 const isPresent = end === "Present";
+const id = experienceId({ company, role, start });
 ---
 
-<div class="exp-card reveal group">
+<div id={id} data-flash class="exp-card reveal group">
 
   <!-- Top bar: role + date -->
   <div class="exp-header">
@@ -69,6 +71,8 @@ const isPresent = end === "Present";
 <style>
   .exp-card {
     position: relative;
+    /* Keeps the card clear of the sticky navbar when scrolled to via a link */
+    scroll-margin-top: 6rem;
     background: rgba(255, 255, 255, 0.55);
     border: 0.5px solid #d6d2c4;
     border-radius: 10px;

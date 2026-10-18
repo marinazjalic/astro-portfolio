@@ -83,3 +83,27 @@ nav a:hover::after {
 .delay-400 {
   transition-delay: 0.4s;
 }
+
+/* ── Card highlight after jumping to it from the technology popup ── */
+.target-flash {
+  animation: target-flash 2.4s ease-out 1;
+}
+@keyframes target-flash {
+  0%,
+  45% {
+    border-color: #3c8fa8;
+    box-shadow:
+      0 0 0 3px rgba(60, 143, 168, 0.4),
+      0 6px 28px rgba(60, 143, 168, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(60, 143, 168, 0),
+      0 0 0 0 rgba(60, 143, 168, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .target-flash {
+    animation-duration: 0.01s;
+  }
+}

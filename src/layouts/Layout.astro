@@ -22,5 +22,22 @@ const { title = "marinazjalic.com" } = Astro.props;
   </head>
   <body>
     <slot />
+
+    <script>
+      // When someone arrives via a link like /portfolio#proj-readify (e.g. from the
+      // technology popup), highlight the card they were sent to.
+      import { flashTarget } from "../scripts/flash-target";
+
+      const flashFromHash = () => {
+        const id = decodeURIComponent(window.location.hash.slice(1));
+        if (!id) return;
+        const el = document.getElementById(id);
+        if (el && el.hasAttribute("data-flash")) flashTarget(el);
+      };
+
+      // Short delay so it plays once the browser has finished scrolling to the card
+      window.addEventListener("load", () => setTimeout(flashFromHash, 350));
+      window.addEventListener("hashchange", flashFromHash);
+    </script>
   </body>
 </html>

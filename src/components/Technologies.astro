@@ -1,16 +1,136 @@
 ---
 import TechnologyCard from './TechnologyCard.astro';
 import { technologies } from '../data/technologies';
+import type { Technology } from '../data/technologies';
+import { experiences } from '../data/experiences';
+import { projects } from '../data/projects';
+import { experienceId, projectId } from '../data/slug';
+
+const norm = (s: string) => s.trim().toLowerCase();
+
+const formatRange = (start: string, end: string) =>
+  `${start.slice(0, 4)} – ${end === 'Present' ? 'Present' : end.slice(0, 4)}`;
+
+// For each technology, work out which experiences and projects reference it.
+// Runs at build time, so the popup content is plain HTML (no data shipped to JS).
+function whereUsed(tech: Technology) {
+  const names = new Set([tech.name, ...(tech.aliases ?? [])].map(norm));
+
+  const exp = experiences
+    .filter((e) => e.skills.some((skill) => names.has(norm(skill))))
+    .map((e) => ({
+      title: e.role,
+      meta: `${e.company} · ${formatRange(e.start, e.end)}`,
+      href: `/#${experienceId(e)}`,
+    }));
+
+  const proj = projects
+    .filter((p) => tech.allProjects || p.tags.some((tag) => names.has(norm(tag))))
+    .map((p) => ({
+      title: p.title,
+      meta: 'Portfolio',
+      href: `/portfolio#${projectId(p.title)}`,
+    }));
+
+  return { exp, proj, total: exp.length + proj.length };
+}
+
+const panels = technologies.map((tech) => ({ tech, ...whereUsed(tech) }));
 ---
 
 <section class="tech-section">
   <p class="section-label mb-3">Stack</p>
   <h2 class="tech-heading">Technologies</h2>
   <p class="tech-sub">Languages, frameworks, and tools I like to work with.</p>
+  <p class="tech-hint">
+    <svg
+      class="tech-hint-icon"
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 3l14 8-6 2-2 6z"></path>
+    </svg>
+    <span>Click to see where I've used it</span>
+  </p>
 
   <div class="tech-grid">
     {technologies.map(tech => <TechnologyCard {...tech} />)}
   </div>
+
+  <!-- ── Popup ── -->
+  <dialog id="tech-dialog" class="tech-modal">
+    <div class="tech-modal-inner">
+      <button type="button" class="tech-modal-close" aria-label="Close">×</button>
+
+      <div class="tech-modal-body">
+        {panels.map(({ tech, exp, proj, total }) => {
+          const Icon = tech.icon;
+          return (
+            <div class="tech-panel" data-panel={tech.name} hidden>
+              <header class="tech-modal-head">
+                <div class="tech-modal-icon"><Icon /></div>
+                <div class="tech-modal-titles">
+                  <p class="section-label">Used in</p>
+                  <h3 class="tech-modal-title">{tech.name}</h3>
+                </div>
+              </header>
+
+              <div class="tech-modal-divider"></div>
+
+              {exp.length > 0 && (
+                <div class="tech-group">
+                  <p class="tech-group-label">Experience</p>
+                  <ul class="tech-list">
+                    {exp.map((item) => (
+                      <li>
+                        <a class="tech-link" href={item.href}>
+                          <span class="tech-link-text">
+                            <span class="tech-link-title tech-link-title--exp">{item.title}</span>
+                            <span class="tech-link-meta tech-link-meta--exp">{item.meta}</span>
+                          </span>
+                          <span class="tech-link-arrow" aria-hidden="true">→</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {proj.length > 0 && (
+                <div class="tech-group">
+                  <p class="tech-group-label">Projects</p>
+                  <ul class="tech-list">
+                    {proj.map((item) => (
+                      <li>
+                        <a class="tech-link" href={item.href}>
+                          <span class="tech-link-text">
+                            <span class="tech-link-title tech-link-title--proj">{item.title}</span>
+                            <span class="tech-link-meta">{item.meta}</span>
+                          </span>
+                          <span class="tech-link-arrow" aria-hidden="true">→</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {total === 0 && (
+                <p class="tech-empty">Nothing listed here yet — check back soon.</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </dialog>
 </section>
 
 <style>
@@ -37,7 +157,32 @@ import { technologies } from '../data/technologies';
   .tech-sub {
     font-size: 0.875rem;
     color: #9ca3af;
+    margin: 0 0 0.75rem;
+  }
+
+  /* "Click to see where I've used it" — monospace + brand blue, like the
+     other small interactive labels (nav links, project buttons) */
+  .tech-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     margin: 0 0 2.5rem;
+    padding: 3px 12px;
+    font-family: monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: #3C8FA8;
+    border: 0.5px dashed rgba(60, 143, 168, 0.55);
+    border-radius: 999px;
+    background: rgba(60, 143, 168, 0.06);
+  }
+  .tech-hint-icon {
+    flex-shrink: 0;
+    animation: hint-nudge 2.4s ease-in-out infinite;
+  }
+  @keyframes hint-nudge {
+    0%, 60%, 100% { transform: translate(0, 0); }
+    75%           { transform: translate(2px, 2px); }
   }
 
   .tech-grid {
@@ -61,4 +206,294 @@ import { technologies } from '../data/technologies';
       max-width: none;
     }
   }
+
+  /* ───────────── Popup ───────────── */
+  .tech-modal {
+    /* Native <dialog>: centred in the top layer, Esc to close, focus is trapped
+       and the page behind is inert while it's open. */
+    width: min(34rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    margin: auto;
+    border: 0.5px solid #d6d2c4;
+    border-radius: 10px;
+    background: #f6f5f2;
+    color: inherit;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(61, 81, 102, 0.22), 0 2px 8px rgba(61, 81, 102, 0.08);
+  }
+  .tech-modal[open] {
+    display: flex;
+    animation: modal-pop 0.22s ease both;
+  }
+  .tech-modal::backdrop {
+    background: rgba(235, 234, 232, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: backdrop-fade 0.22s ease both;
+  }
+  @keyframes modal-pop {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes backdrop-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tech-modal[open],
+    .tech-modal::backdrop { animation: none; }
+    .tech-hint-icon { animation: none; }
+  }
+
+  .tech-modal-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+  }
+  /* Gradient accent strip, same colours as the experience card's hover bar */
+  .tech-modal-inner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, #3C8FA8, #C17B9E);
+    z-index: 1;
+  }
+
+  .tech-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: monospace;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: #3C8FA8;
+    background: transparent;
+    border: 1px solid #3C8FA8;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .tech-modal-close:hover { background: #3C8FA8; color: white; }
+  .tech-modal-close:focus-visible { outline: 2px solid #3C8FA8; outline-offset: 2px; }
+
+  /* Scrolls on its own if there are lots of entries or the screen is short */
+  .tech-modal-body {
+    padding: 1.5rem 1.5rem 1.5rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    min-height: 0;
+  }
+  @media (min-width: 640px) {
+    .tech-modal-body { padding: 1.75rem 1.75rem 1.75rem; }
+  }
+
+  .tech-panel[hidden] { display: none; }
+
+  .tech-modal-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-right: 2.25rem; /* keep clear of the close button */
+  }
+  .tech-modal-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 10px;
+    border: 0.5px solid #d6d2c4;
+    background: rgba(255, 255, 255, 0.55);
+  }
+  .tech-modal-icon :global(svg) {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: #3C8FA8;
+  }
+  .tech-modal-titles { min-width: 0; }
+  .tech-modal-titles .section-label { margin: 0 0 2px; }
+  .tech-modal-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #6b7280;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .tech-modal-divider {
+    height: 0.5px;
+    background: linear-gradient(to right, #d6d2c4, transparent);
+    margin: 18px 0 16px;
+  }
+
+  .tech-group + .tech-group { margin-top: 18px; }
+  .tech-group-label {
+    font-family: monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin: 0 0 8px;
+  }
+
+  .tech-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tech-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 0.5px solid #d6d2c4;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .tech-link:hover,
+  .tech-link:focus-visible {
+    border-color: #3C8FA8;
+    box-shadow: 0 6px 20px rgba(60, 143, 168, 0.12);
+    transform: translateY(-1px);
+  }
+  .tech-link:focus-visible { outline: 2px solid #3C8FA8; outline-offset: 2px; }
+
+  .tech-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .tech-link-title--exp {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #4a5f72;
+    line-height: 1.3;
+  }
+  .tech-link-title--proj {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #3d5166;
+    line-height: 1.3;
+  }
+  .tech-link-meta {
+    font-family: monospace;
+    font-size: 0.72rem;
+    color: #9ca3af;
+    line-height: 1.4;
+  }
+  .tech-link-meta--exp { color: #C17B9E; }
+
+  .tech-link-arrow {
+    flex-shrink: 0;
+    font-family: monospace;
+    color: #3C8FA8;
+    transition: transform 0.25s ease;
+  }
+  .tech-link:hover .tech-link-arrow,
+  .tech-link:focus-visible .tech-link-arrow { transform: translateX(3px); }
+
+  .tech-empty {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  @media (max-width: 479px) {
+    .tech-section { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .tech-modal-title { font-size: 1.3rem; }
+    .tech-link { padding: 10px 12px; }
+  }
+
+  /* Page behind the popup shouldn't scroll */
+  :global(html.tech-modal-open) { overflow: hidden; }
 </style>
+
+<script>
+  import { flashTarget } from '../scripts/flash-target';
+
+  const dialog = document.getElementById('tech-dialog') as HTMLDialogElement | null;
+
+  if (dialog) {
+    const panels = Array.from(dialog.querySelectorAll<HTMLElement>('.tech-panel'));
+    const body = dialog.querySelector<HTMLElement>('.tech-modal-body');
+    const closeBtn = dialog.querySelector<HTMLButtonElement>('.tech-modal-close');
+    const root = document.documentElement;
+
+    const open = (name: string) => {
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.panel !== name;
+      });
+      dialog.setAttribute('aria-label', `Where I've used ${name}`);
+      if (body) body.scrollTop = 0;
+      root.classList.add('tech-modal-open');
+      dialog.showModal();
+    };
+
+    document.querySelectorAll<HTMLButtonElement>('.tech-card[data-tech]').forEach((card) => {
+      card.addEventListener('click', () => open(card.dataset.tech ?? ''));
+    });
+
+    closeBtn?.addEventListener('click', () => dialog.close());
+
+    // Always release the scroll lock, however the popup closes (Esc, X, link, backdrop)
+    dialog.addEventListener('close', () => root.classList.remove('tech-modal-open'));
+
+    dialog.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+
+      // Click on the dimmed backdrop (the dialog element itself, since it has no padding)
+      if (target === dialog) {
+        dialog.close();
+        return;
+      }
+
+      const link = target.closest<HTMLAnchorElement>('a.tech-link');
+      if (!link) return;
+
+      const url = new URL(link.href, window.location.href);
+      const samePage = url.pathname === window.location.pathname && url.hash;
+
+      dialog.close();
+
+      // Same page (experience cards): smooth-scroll there and highlight it.
+      // Other page (project cards): let the browser navigate; the layout's
+      // script scrolls to and highlights the card on arrival.
+      if (samePage) {
+        event.preventDefault();
+        const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+        if (el) {
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+          history.pushState(null, '', url.hash);
+          setTimeout(() => flashTarget(el), 350);
+        }
+      }
+    });
+  }
+</script>
